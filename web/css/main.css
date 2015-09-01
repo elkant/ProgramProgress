@@ -1,0 +1,175 @@
+/* 
+    Document   : main
+    Created on : Aug 9, 2013, 7:39:46 PM
+    Author     : Maureen
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+html, body {
+height: 100%; margin:0; padding:0;
+}
+
+body {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+       
+	
+}
+
+* html body{
+	overflow:hidden; 
+}
+
+h3 {
+font-size:1.2em; color:#1049A9;
+padding:0; margin:5px;
+}
+
+h5 {color: #000;
+padding:0; margin:0;}
+
+h4 {color:#BF6230;
+padding:0; margin:0;}
+
+form, table {width:inherit;}
+
+table tr td, p {font-size:0.8em;}
+
+/*table tr th {color:#BF6230;}*/
+
+table tr th.gray {background-color:#E0DFDB;}
+
+tr.d0 td {
+	background-color: #F0F0F0; color: black;
+        font-size: 1.0em;
+}
+tr.d1 td {
+	background-color: #F8F8FF; color: black;
+        font-size: 1.0em;
+}
+tr.d2 td {
+	background-color: activecaption;
+            color: black;
+             font-size: 1.3em;
+}
+
+#header{
+	width:inherit;
+	height:100px;
+	border-bottom:4px solid #E1E5ED;
+}
+
+#header h5 {color:#BF6230;
+padding:0; margin:35px 0 0 550px; font-size:1.3em;}
+
+#header h1 {
+   color:#BF6230;
+padding:0; margin:35px 0 0 550px; font-size:1.3em;
+background-color: #1049A9;
+}
+
+#header img.center {
+	height:96px; width:366px;     
+	display: block;
+    margin-left: 140px;
+    margin-right: auto;}
+
+#header img.right {
+	display:block;
+	margin:-100px auto;
+	margin-right: 0;
+}
+
+#container{
+	
+        
+	border:2px solid #C6C3B5;
+	margin:10px auto;
+	margin-bottom:50px;
+	background-color: #eeeeee;
+}
+
+#container input.button{
+    align:center;
+	background:#BEBEBE;
+	border:2px solid #E0DFDB; color:#373938;
+	font-size:1.0em; font-weight:bold;
+	width:100px; margin:5px 10px;
+}
+
+#container select.dropdown{ width:100px; }
+.particularsfield {width:450px;}
+.particulars {width:150px;}
+
+.inputSize {
+	width:150px;
+	font-size: 0.8em;
+}
+
+
+
+.theader {
+	text-align: left;
+	font-size: 0.8em;
+}
+
+.theaders{font-size: 0.8em;}
+
+table tr td.error {
+	width:300px; 
+	color:red;
+}
+
+#footer{
+	width:inherit;
+	height:10.5%; margin-top:-50px;
+	background-color:#E1E5ED;
+}
+
+#footer h6 {
+	color:#BF6230;
+	padding:75px 0 0 0; margin:0;
+	text-align:center;
+}
+.convert1{
+ border:0px;
+ border-color: #F0F0F0;
+ background-color: #F0F0F0; color: black;
+ width:430px;
+ 
+  
+}
+.convert2{
+ border:0px;
+ border-color: #F8F8FF;
+ background-color: #F8F8FF; color: black;
+ width:430px;
+ 
+  
+}
+/*table.fixed { table-layout:fixed; }*/
+table.fixed td { 
+/*    overflow: hidden;*/
+
+box-shadow: 1px 1px 5px #888888;
+border:1px solid;
+text-align: center;
+width:150px;
+}
+table.fixed th { 
+    /*overflow: hidden;*/
+ 
+box-shadow: 1px 1px 1px #888888;
+border:1px solid;
+font-family: cursive;
+font-size: 15px;
+width:150px;
+}
+textarea{
+    height: 150px;
+    
+}
+

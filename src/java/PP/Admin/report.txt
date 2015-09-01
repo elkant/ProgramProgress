@@ -1,0 +1,700 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package PPMP;
+
+import DBCONNECT.dbConnect;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+
+/**
+ *
+ * @author Maureen
+ */
+public class pmpgeneratereport extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP
+     * <code>GET</code> and
+     * <code>POST</code> methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    
+      int no=0;
+         int  years=0;
+    @SuppressWarnings("empty-statement")
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+//        PrintWriter out = response.getWriter();
+        try {
+            String current_time="";
+  Calendar cal = Calendar.getInstance();
+int year1=cal.get(Calendar.YEAR);
+int month=cal.get(Calendar.MONTH)+1;
+int date=cal.get(Calendar.DATE);
+int hour = cal.get(Calendar.HOUR_OF_DAY);
+int min=cal.get(Calendar.MINUTE);
+int sec=cal.get(Calendar.SECOND);
+
+current_time=year1+"_"+month+"_"+date;
+           String janmarch=""; 
+                 String apriljune="";
+                    String julyaugust="";
+            no=10;years=0;
+            String interval="";
+            String resval="";
+            int rescopy=3;
+            String year ="";
+            String yearname="";
+            year= request.getParameter("year");
+            dbConnect conn = new dbConnect();
+            String getyear=" SELECT * from Years where Year_ID = '"+year+"'";
+            conn.rs= conn.state.executeQuery(getyear);
+            while(conn.rs.next()){
+            yearname = conn.rs.getString(2);
+            }
+            /* TODO output your page here. You may use following sample code. */
+              HSSFWorkbook wb=new HSSFWorkbook();
+          HSSFSheet shet1=wb.createSheet();
+        //Styles for the created work Book
+          //Code showing the font of the styles
+          HSSFFont font_header=wb.createFont();
+    font_header.setFontHeightInPoints((short)10);
+    font_header.setFontName("Arial Black");
+//    font.setItalic(true);
+    font_header.setBoldweight((short)15);
+    font_header.setColor(HSSFColor.BLACK.index);
+          //Style for the row showing the start date of the report
+    //Cell Style known as "style_header"
+          CellStyle style_header=wb.createCellStyle();
+    style_header.setFont(font_header);
+    style_header.setWrapText(true);
+    style_header.setFillForegroundColor(HSSFColor.LIGHT_CORNFLOWER_BLUE.index);
+style_header.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+ 
+            style_header.setBorderBottom(CellStyle.BORDER_THIN);
+            style_header.setBorderLeft(CellStyle.BORDER_THIN);
+            style_header.setBorderRight(CellStyle.BORDER_THIN);
+            style_header.setBorderTop(CellStyle.BORDER_THIN);
+            style_header.setAlignment(CellStyle.ALIGN_CENTER);
+            
+            //Creating yellow for the years
+            CellStyle year_style_header=wb.createCellStyle();
+    year_style_header.setFont(font_header);
+    year_style_header.setWrapText(true);
+    year_style_header.setFillForegroundColor(HSSFColor.YELLOW.index);
+year_style_header.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+ 
+            year_style_header.setBorderBottom(CellStyle.BORDER_THIN);
+            year_style_header.setBorderLeft(CellStyle.BORDER_THIN);
+            year_style_header.setBorderRight(CellStyle.BORDER_THIN);
+            year_style_header.setBorderTop(CellStyle.BORDER_THIN);
+            year_style_header.setAlignment(CellStyle.ALIGN_CENTER);
+              year_style_header.setWrapText(true);
+            
+            //Cell Style header known as "indicator_style"
+             CellStyle indicator_style = wb.createCellStyle();
+            indicator_style.setFillForegroundColor(HSSFColor.YELLOW.index);
+            indicator_style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+                HSSFFont fonts = wb.createFont();
+                fonts.setColor(HSSFColor.BLACK.index);
+                fonts.setFontHeightInPoints((short) 10);
+                fonts.setFontName(HSSFFont.FONT_ARIAL);
+             
+            indicator_style.setFont(fonts);
+            indicator_style.setBorderBottom(CellStyle.BORDER_THIN);
+            indicator_style.setBorderLeft(CellStyle.BORDER_THIN);
+            indicator_style.setBorderRight(CellStyle.BORDER_THIN);
+            indicator_style.setBorderTop(CellStyle.BORDER_THIN);
+//            indicator_style.setAlignment(CellStyle.ALIGN_CENTER);
+            indicator_style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            indicator_style.setWrapText(true);
+            
+           // for the data
+             CellStyle datastyle = wb.createCellStyle();
+            datastyle.setFillForegroundColor(HSSFColor.ORANGE.index);
+            datastyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+                HSSFFont datafont = wb.createFont();
+                datafont.setColor(HSSFColor.BLACK.index);
+                datafont.setFontHeightInPoints((short) 10);
+                datafont.setFontName(HSSFFont.FONT_ARIAL);
+             
+            datastyle.setFont(datafont);
+            datastyle.setBorderBottom(CellStyle.BORDER_THIN);
+            datastyle.setBorderLeft(CellStyle.BORDER_THIN);
+            datastyle.setBorderRight(CellStyle.BORDER_THIN);
+            datastyle.setBorderTop(CellStyle.BORDER_THIN);
+//            indicator_style.setAlignment(CellStyle.ALIGN_CENTER);
+            datastyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            datastyle.setWrapText(true);
+            
+            
+            
+            
+            
+            //Style known as "cell_style"
+            CellStyle cell_style = wb.createCellStyle();
+          
+          
+                HSSFFont fonts1 = wb.createFont();
+                fonts1.setColor(HSSFColor.BLACK.index);
+                fonts1.setFontHeightInPoints((short) 10);
+            cell_style.setFont(fonts1);
+            cell_style.setFillForegroundColor(HSSFColor.YELLOW.index);
+            cell_style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+            cell_style.setBorderBottom(CellStyle.BORDER_THIN);
+            cell_style.setBorderLeft(CellStyle.BORDER_THIN);
+            cell_style.setBorderRight(CellStyle.BORDER_THIN);
+            cell_style.setWrapText(true);
+            cell_style.setBorderTop(CellStyle.BORDER_THIN);
+            cell_style.setVerticalAlignment(CellStyle.ALIGN_JUSTIFY);
+            
+    shet1.setColumnWidth(0,6000);
+    shet1.setColumnWidth(1, 7000); 
+    shet1.setColumnWidth(2, 7000);
+    shet1.setColumnWidth(3, 7000);
+    shet1.setColumnWidth(4, 3000);
+    shet1.setColumnWidth(5, 3000);
+    shet1.setColumnWidth(6, 3000);
+    shet1.setColumnWidth(7, 3000);
+    shet1.setColumnWidth(8, 3000); 
+    shet1.setColumnWidth(9, 3000);
+    shet1.setColumnWidth(10, 3000);
+    shet1.setColumnWidth(11, 3000);
+    shet1.setColumnWidth(12, 3000);
+    shet1.setColumnWidth(13, 3000);
+    shet1.setColumnWidth(14, 3000);
+    shet1.setColumnWidth(15, 3000);
+    shet1.setColumnWidth(16, 3000);
+    shet1.setColumnWidth(17, 5000);
+    int columns=0;
+String[] previousyear=null; 
+String previousyearid=""; 
+
+if(yearname.equals("2011")){
+previousyear= new String[]{"1"};
+previousyearid= "0";
+columns=1;
+
+}
+if(yearname.equals("2012")){
+columns=2;
+  previousyear= new String[]{"2","1"};
+  previousyearid= "1";
+}
+if(yearname.equals("2013")){
+columns=3;
+  previousyear= new String[]{"3","2","1"};
+  previousyearid= "2";
+}
+if(yearname.equals("2014")){
+columns=4;
+  previousyear= new String[]{"17","3","2","1"};
+  previousyearid= "3";
+}
+if(yearname.equals("2015")){
+columns=5;
+  previousyear= new String[]{"18","17","3","2","1"};
+  previousyearid= "18";
+}
+int intercopy=3;
+int yearno=0;
+yearno=Integer.parseInt(yearname);
+       HSSFRow rw1=shet1.createRow(0);
+       HSSFCell rw1cell1=rw1.createCell(0);
+      rw1cell1.setCellValue("PROJECT PERFORMANCE MONITORING PLAN (PPMP)");
+      rw1cell1.setCellStyle(cell_style);
+      shet1.addMergedRegion(new CellRangeAddress(0,0,0,14));
+       rw1.setHeightInPoints(35);
+   HSSFRow rw2=shet1.createRow(2);
+    rw2.setHeightInPoints(30);
+      HSSFCell rw2cell1=rw2.createCell(0);
+          rw2cell1.setCellStyle(cell_style); 
+     HSSFCell rw2cell2=rw2.createCell(1);
+         rw2cell2.setCellStyle(cell_style); 
+      HSSFCell rw2cell3=rw2.createCell(2);
+          rw2cell3.setCellStyle(cell_style); 
+      HSSFCell rw2cell4=rw2.createCell(3);
+          rw2cell4.setCellStyle(cell_style); 
+      HSSFCell rw2cell5=rw2.createCell(4);
+          rw2cell5.setCellStyle(cell_style); 
+      HSSFCell rw2cell6=rw2.createCell(5);
+          rw2cell6.setCellStyle(cell_style); 
+      HSSFCell rw2cell7=rw2.createCell(6);
+          rw2cell7.setCellStyle(cell_style); 
+      HSSFCell rw2cell8=rw2.createCell(7);
+          rw2cell8.setCellStyle(cell_style); 
+      HSSFCell rw2cell9=rw2.createCell(8);
+          rw2cell9.setCellStyle(cell_style); 
+      HSSFCell rw2cell10=rw2.createCell(9);
+          rw2cell10.setCellStyle(cell_style); 
+     
+    HSSFRow rw_3=shet1.createRow(1);
+      HSSFCell rw_3cell1=rw_3.createCell(0);
+          rw_3cell1.setCellStyle(cell_style); 
+     HSSFCell rw_3cell2=rw_3.createCell(1);
+         rw_3cell2.setCellStyle(cell_style); 
+      HSSFCell rw3cell_3=rw_3.createCell(2);
+          rw3cell_3.setCellStyle(cell_style); 
+      HSSFCell rw3cell_4=rw_3.createCell(3);
+          rw3cell_4.setCellStyle(cell_style); 
+      HSSFCell rw_3cell5=rw_3.createCell(4);
+          rw_3cell5.setCellStyle(cell_style); 
+      HSSFCell rw_3cell6=rw_3.createCell(5);
+          rw_3cell6.setCellStyle(cell_style); 
+      HSSFCell rw_3cell7=rw_3.createCell(6);
+          rw_3cell7.setCellStyle(cell_style); 
+      HSSFCell rw_3cell8=rw_3.createCell(7);
+          rw_3cell8.setCellStyle(cell_style); 
+      HSSFCell rw_3cell9=rw_3.createCell(8);
+          rw_3cell9.setCellStyle(cell_style); 
+      HSSFCell rw_3cell10=rw_3.createCell(9);
+          rw_3cell10.setCellStyle(cell_style); 
+      HSSFCell rw_3cell12=rw_3.createCell(12);
+          rw_3cell12.setCellStyle(cell_style); 
+      HSSFCell rw_3cell13=rw_3.createCell(13);
+          rw_3cell13.setCellStyle(cell_style); 
+      HSSFCell rw_3cell14=rw_3.createCell(14);
+          rw_3cell14.setCellStyle(cell_style); 
+     
+          
+             rw_3cell7.setCellValue(yearname+"  Quarterly Achievements"); 
+         shet1.addMergedRegion(new CellRangeAddress(1,1,6,9));
+          
+     
+//      rw2.setRowStyle(indicator_style);
+ 
+      rw2cell1.setCellValue("Result Area");        
+      rw2cell2.setCellValue("Intermediate Result");
+      rw2cell3.setCellValue("Output");        
+      rw2cell4.setCellValue("Indicator");                     
+      rw2cell5.setCellValue("Baseline");                     
+      rw2cell6.setCellValue("Year "+yearname+" Target");                     
+    
+      rw2cell7.setCellValue("Oct-Dec " + (yearno-1)); 
+      rw2cell8.setCellValue("Jan-Mar");                     
+      rw2cell9.setCellValue("Apr-Jun");                     
+      rw2cell10.setCellValue("Jul-Sep");                     
+   
+//      rw2cell12.setCellValue("ear Achievements");  
+      // for previous years
+      
+     
+          years=Integer.parseInt(yearname);
+       HSSFCell rw2cell11=null;
+       int colcount=0;
+       colcount=columns+10;
+        for(int i=0;i<columns;i++){
+            
+              HSSFCell rw_3cell11=rw_3.createCell(no);
+          rw_3cell11.setCellStyle(cell_style); 
+             rw_3cell11.setCellValue("Cumulative Year Achievements"); 
+            System.out.println(no);
+           rw2cell11=rw2.createCell(no);
+           
+          shet1.addMergedRegion(new CellRangeAddress(1,1,10,colcount-1));
+       no++;
+           System.out.println(years);
+           rw2cell11.setCellValue(years);
+       years--; 
+          rw2cell11.setCellStyle(cell_style); 
+        }
+            System.out.println("--"+no);
+      HSSFCell rw2cell12=rw2.createCell(no); 
+      rw2cell12.setCellStyle(cell_style); 
+    
+//       for(int i=0;i<columns;i++){
+//       
+//     
+//       
+//       }                     
+      rw2cell12.setCellValue("Percentage(%) Achieved vs Year "+yearname);                     
+                    
+   
+      
+      
+      
+      
+//# Start from the first cell. Rows and columns are zero indexed.
+//    connection = sqlite3.connect('PPMP_APHIAPLUS.sqlite')
+//    cursor = connection.cursor()
+//    mow = 4
+//    nol = 0  
+      int indic=0;
+   int inter=0;
+   int res=0;
+   int out=0;
+   int outid=0;
+   int rowcount=3;
+   String getdata="select * from Master_Record where Year_ID ='"+year+"' order by IR_ID,I_ID,RA_ID";
+   
+   conn.rs = conn.state.executeQuery(getdata);
+   while(conn.rs.next()){
+      
+          HSSFRow rw3=shet1.createRow(rowcount);
+       indic = conn.rs.getInt(14);
+        inter =  conn.rs.getInt(3);
+        res =  conn.rs.getInt(2);
+        out = conn.rs.getInt(5);
+          outid =  conn.rs.getInt(4);
+        
+          
+          
+          
+          
+      
+       rw3.setHeightInPoints(67);
+    
+      HSSFCell rw3cell1=rw3.createCell(0);
+        rw3cell1.setCellStyle(indicator_style);
+      HSSFCell rw3cell2=rw3.createCell(1);
+        rw3cell2.setCellStyle(indicator_style);
+      HSSFCell rw3cell3=rw3.createCell(2);
+        rw3cell3.setCellStyle(datastyle);
+      HSSFCell rw3cell4=rw3.createCell(3);
+        rw3cell4.setCellStyle(datastyle);
+      HSSFCell rw3cell5=rw3.createCell(4);
+        rw3cell5.setCellStyle(datastyle);
+      HSSFCell rw3cell6=rw3.createCell(5);
+        rw3cell6.setCellStyle(datastyle);
+      HSSFCell rw3cell7=rw3.createCell(6);
+        rw3cell7.setCellStyle(datastyle);
+      HSSFCell rw3cell8=rw3.createCell(7);
+        rw3cell8.setCellStyle(datastyle);
+      HSSFCell rw3cell9=rw3.createCell(8);
+        rw3cell9.setCellStyle(datastyle);
+      HSSFCell rw3cell10=rw3.createCell(9);
+        rw3cell10.setCellStyle(datastyle);
+   
+//      HSSFCell rw3cell12=rw3.createCell(12);
+//      HSSFCell rw3cell13=rw3.createCell(13);
+//      HSSFCell rw3cell14=rw3.createCell(14);
+//      HSSFCell rw3cell15=rw3.createCell(15);
+//      HSSFCell rw3cell16=rw3.createCell(16);
+//      HSSFCell rw3cell17=rw3.createCell(17);
+          
+  
+   String indic_name="";
+            String getindicatorname="select * from Indicators where Indicator_ID = '"+indic+"'";
+            conn.rs2= conn.state2.executeQuery(getindicatorname);
+            while(conn.rs2.next()){
+                indic_name = conn.rs2.getString(3);
+                 rw3cell4.setCellValue(indic_name); 
+                 rw3cell4.setCellStyle(datastyle); 
+                 
+            }
+           
+    
+        
+    String inter_name="";
+
+           String getintermediate="select * from Intermediate_Results where IR_ID = '"+inter+"'";
+           conn.rs3=conn.state3.executeQuery(getintermediate);
+           
+           while(conn.rs3.next()){
+                inter_name = conn.rs3.getString(3);
+               
+       
+          System.out.println("interval     "+interval +"  "+intercopy +"  "+rowcount);
+       
+             if(interval.equals("")){
+              interval=inter_name;
+//              if(inter_name.
+                 
+                    rw3cell2.setCellValue(inter_name); 
+                     rw3cell2.setCellStyle(indicator_style);
+//                 if(rowcount>intercopy){
+//                       intercopy=rowcount;
+                         System.out.println(intercopy+"  fff   "+rowcount); 
+//             shet1.addMergedRegion(new CellRangeAddress(intercopy,rowcount,2,2));
+              
+//                 }
+         }
+            if(!interval.equals("") && !interval.equals(inter_name)){
+                interval=inter_name;
+              
+                 rw3cell2.setCellValue(interval); 
+                    if(rowcount>intercopy){
+                           rw3cell2.setCellValue(interval); 
+                 System.out.println(intercopy+"  fffg   "+rowcount);
+                 shet1.addMergedRegion(new CellRangeAddress(intercopy,rowcount-1,1,1));
+                  intercopy=rowcount;
+                    }
+                       rw3cell2.setCellStyle(indicator_style);
+//                   rw3cell2.setCellValue(inter_name); 
+            }
+              
+       
+        }   
+           
+        
+           
+           String res_name="";
+           String getrresultarea="select * from Result_Area where RA_ID = '"+res+"'";
+          conn.rs4 = conn.state4.executeQuery(getrresultarea);
+                while(conn.rs4.next()){
+                    res_name = conn.rs4.getString(2);
+                  
+              
+   
+                
+                  if(resval.equals("")){
+              resval=res_name;
+                      rw3cell1.setCellStyle(indicator_style);
+                   rw3cell1.setCellValue(res_name); 
+//                 if(rowcount>intercopy){
+//                       intercopy=rowcount;
+                         System.out.println(intercopy+"  fff   "+rowcount); 
+//             shet1.addMergedRegion(new CellRangeAddress(intercopy,rowcount,2,2));
+              
+//                 }
+         }
+            if(!resval.equals("") && !resval.equals(res_name)){
+                resval=res_name;
+                    rw3cell1.setCellStyle(indicator_style);
+                    rw3cell1.getRow().setHeight((short)5);
+                 rw3cell1.setCellValue(resval); 
+                    if(rowcount>rescopy){
+//                 rw3cell1.setCellValue(res_name); 
+                 System.out.println(rescopy+"  fffg   "+rowcount);
+                 shet1.addMergedRegion(new CellRangeAddress(rescopy,rowcount-1,0,0));
+                  rescopy=rowcount;
+                    }
+//                   rw3cell2.setCellValue(inter_name); 
+            } 
+                
+                
+                }
+          
+    
+
+                String expid="";
+            String get_output_name= "select * from Output where OP_ID = '"+out+"'";
+           conn.rs3 = conn.state2.executeQuery(get_output_name);
+          while(conn.rs3.next())
+           {expid =conn.rs3.getString(3);
+           
+              rw3cell3.setCellValue(expid); 
+               rw3cell3.setCellStyle(datastyle); 
+           }
+           
+             rw3cell5.setCellValue(conn.rs.getString(15)); 
+             rw3cell6.setCellValue(conn.rs.getString(16)); 
+             rw3cell5.setCellStyle(datastyle); 
+             rw3cell6.setCellStyle(datastyle); 
+             String getoctdec="select * from Master_Record where Year_ID ='"+previousyearid+"'  and I_ID ='"+indic+"' "; 
+             System.out.println(getoctdec);
+             conn.rs7 = conn.state7.executeQuery(getoctdec);
+             String octdec="";
+             while(conn.rs7.next()){
+                 octdec=conn.rs7.getString(11);
+                 rw3cell7.setCellValue(conn.rs7.getString(11)); // for oct-dec // to get for previos year
+              rw3cell7.setCellStyle(datastyle); 
+             }
+             
+             rw3cell8.setCellValue(conn.rs.getString(8)); // for jan-march
+             rw3cell9.setCellValue(conn.rs.getString(9)); // for april-june
+             rw3cell10.setCellValue(conn.rs.getString(10)); // for july-sept
+       rw3cell8.setCellStyle(datastyle); 
+       rw3cell9.setCellStyle(datastyle); 
+       rw3cell10.setCellStyle(datastyle); 
+            
+           
+//           str(col[14]),data_format ) #this value is varchar type in database
+//        worksheet5.write_string(mow, nol + 5, str(col[15]),data_format )#this  is varchar type in databse
+//        worksheet5.write_string(mow, nol + 6, str(col[7]),data_format )#also a var char typ in db
+//        worksheet5.write_string(mow, nol + 7, str(col[8]),data_format )#this  is varchar type in databse
+//        worksheet5.write_string(mow, nol + 8, str(col[9]),data_format )#this  is varchar type in databse
+//        worksheet5.write_string(mow, nol + 9, str(col[10]) ,data_format)#this  is varchar type in databse
+//        worksheet5.write_number(mow, nol + 10, col[11],
+           
+           
+
+           String prvyridrs = "";
+               int nos=10;  
+           for(int j=0;j<previousyear.length;j++){
+                 HSSFCell rw3cell11=rw3.createCell(nos);
+                   rw3cell11.setCellStyle(datastyle);
+                  nos++;
+            String getpreviousyear="select * from Master_Record where Year_ID = '"+previousyear[j]+"' and I_ID ='"+indic+"'";
+//          System.out.println(getpreviousyear);
+            conn.rs6 = conn.state6.executeQuery(getpreviousyear);
+          while(conn.rs6.next()){
+                prvyridrs =conn.rs6.getString(12);
+                 
+                   rw3cell11.setCellValue(prvyridrs);
+                  rw3cell11.setCellStyle(datastyle); 
+                 System.out.println(previousyear[j] +" "+prvyridrs);
+                  System.out.println("%%% "+nos);
+          
+          
+          
+          }
+             
+         
+           }
+           System.out.println("ooo "+nos);
+             HSSFCell rw3cell12=rw3.createCell(nos);
+               rw3cell12.setCellStyle(datastyle);
+               int achieved=0;
+            
+              String getIndicators="select * from indicators where Indicator_ID = '"+indic+"'"; 
+              conn.rs4 =conn.state4.executeQuery(getIndicators);
+              while(conn.rs4.next()){
+                if (conn.rs4.getInt("percentage") == 1){
+                String octdecs=octdec;
+              
+               janmarch=conn.rs.getString(8);
+               apriljune=conn.rs.getString(9);
+               julyaugust=conn.rs.getString(10);
+               System.out.println(conn.rs.getString(8) +" oooo "+conn.rs.getString(9)+" "+conn.rs.getString(10));
+       ArrayList qtravg =new ArrayList();
+       if(janmarch!=null && !janmarch.equals("")){
+        if (Integer.parseInt(janmarch.replace("%", "")) !=0){
+        qtravg.add(Integer.parseInt(janmarch));
+        }}
+        if(apriljune!=null &&!apriljune.equals("")){
+        if (Integer.parseInt(apriljune.replace("%", "")) != 0){
+        qtravg.add(Integer.parseInt(apriljune));
+        }}
+         if(julyaugust!=null &&!julyaugust.equals("")){
+        if (Integer.parseInt(julyaugust.replace("%", ""))!=0){
+        qtravg.add(Integer.parseInt(julyaugust));
+        }}
+           if(octdecs!=null && !octdecs.equals("")){
+        if (Integer.parseInt(octdecs.replace("%", ""))!=0){
+        qtravg.add(Integer.parseInt(octdecs.replace("%", "")));
+        }}
+        int sum = 0;
+        
+        for (int i = 0; i < qtravg.size(); i++){
+        sum += Integer.parseInt(qtravg.get(i).toString());
+        }
+        int avg=0;
+        if(qtravg.size()!=0){
+        avg = sum/qtravg.size();
+        }
+       achieved= Math.round(avg);
+//        avg = avg.toFixed(0)
+//        document.getElementById('cum').value = avg;
+//        percent()}
+       
+       rw3cell12.setCellValue(achieved+"%"); 
+            rw3cell12.setCellStyle(datastyle);
+        }else{
+            rw3cell12.setCellValue(conn.rs.getString(13)); 
+            rw3cell12.setCellStyle(datastyle); 
+                }
+           }
+           
+
+      rowcount++;
+         }
+       
+     if(rowcount>intercopy){
+//                 shet1.addMergedRegion(new CellRangeAddress(intercopy,rowcount-1,0,0));
+               shet1.addMergedRegion(new CellRangeAddress(intercopy,rowcount-1,1,1));
+                 intercopy=rowcount;
+   
+   }
+     if(rowcount>rescopy){
+//                 shet1.addMergedRegion(new CellRangeAddress(intercopy,rowcount-1,0,0));
+               shet1.addMergedRegion(new CellRangeAddress(rescopy,rowcount-1,0,0));
+                 rescopy=rowcount;
+   
+   }
+         
+           
+         // write it as an excel attachment
+ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+wb.write(outByteStream);
+byte [] outArray = outByteStream.toByteArray();
+response.setContentType("application/ms-excel");
+response.setContentLength(outArray.length);
+response.setHeader("Expires:", "0"); // eliminates browser caching
+//response.setHeader("Content-Disposition", "attachment; filename=PPMPREPORT.xls");
+response.setHeader("Content-Disposition", "attachment; filename=PPMP_"+yearname+"_"+"County_Report_Created_On_"+current_time+".xls");
+OutputStream outStream = response.getOutputStream();
+outStream.write(outArray);
+outStream.flush();
+        
+        
+        } finally {            
+//            out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP
+     * <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(pmpgeneratereport.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Handles the HTTP
+     * <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(pmpgeneratereport.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+}
