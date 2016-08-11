@@ -22,11 +22,13 @@ dbConnect conn = new dbConnect();
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <script src="js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="js/jquery1.8.3.min.js"></script>
+    <!--<script src="js/jquery-1.9.1.js"></script>-->
+    <!--<script src="js/jquery-1.7.2.js"></script>-->
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="css/main.css" type="text/css" media="all"/>
      <link rel="shortcut icon" href="images/pptlogo.png"/>
-    <title>Program Progress</title>
+    <title>PPMT-data entry</title>
         <link rel="stylesheet" href="themes/base/jquery.ui.all.css"/>
          <link rel="stylesheet" href="themes/smoothness/jquery.ui.all.css"/>
 <!--         <script src="js/jquery-1.7.2.js"></script>-->
@@ -47,12 +49,13 @@ dbConnect conn = new dbConnect();
 <!-- You can add more layouts if you want -->
 
 <script type="text/javascript" src="js/noty/themes/default.js"></script>
-        
+
+   <script type="text/javascript" src="js/jquery.searchabledropdown-1.0.8.min.js"></script>     
         <!--External JAvascript-->
          <!--   <script src="js/ResultsMainJS.js"></script>-->
        <script type="text/javascript" src="js/ResultsMainHelp.js"></script>
         <!-- <script type="text/javascript" src="js/result2.js"></script>-->
-        
+      
          
          
          <script>
@@ -69,6 +72,9 @@ $( document ).tooltip();
       
         </script>
        
+        
+        
+        
         <script>
              function total(){
             var u = document.getElementById("women").value; 
@@ -2595,7 +2601,7 @@ mcount++;
                                          String AccessLevel=(String)session.getAttribute("AccessLevel");
                                            if(AccessLevel.equals("1")){
                                            
-                                               String Query= "SELECT * FROM indicatortitles";
+                                               String Query= "SELECT * FROM indicatortitles where active='yes' ";
 //                                                     conn.state= conn.connect.createStatement();
                                                
                                                if(conn.state2.isClosed()){conn= new dbConnect();}
@@ -2613,7 +2619,7 @@ mcount++;
                                            
                                                                                                                     }
                                            }else
-                                           {                  String QueryDists= "SELECT * FROM indicatortitles where designation LIKE '%"+AccessLevel+"%' ";
+                                           {                  String QueryDists= "SELECT * FROM indicatortitles where designation LIKE '%"+AccessLevel+"%' and active='yes' ";
 //                                                     conn.state= conn.connect.createStatement();
                                                               
                                                               if(conn.state.isClosed()){conn= new dbConnect();}
@@ -2651,6 +2657,10 @@ mcount++;
                                        <option value="2013">2013</option>
                                        <option value="2014">2014</option>
                                        <option value="2015">2015</option>
+                                       <option value="2016">2016</option>
+                                       <option value="2017">2017</option>
+                                       <option value="2018">2018</option>
+                                       <option value="2019">2019</option>
                                   
 <!--                                       <input type="text" name="financialyr" id="financialyr" value=""></td> -->
                                    </select></th>
@@ -3055,7 +3065,10 @@ mcount++;
         
    
 </div>
+    <div style="margin-bottom:-1px;background-color: ;">
+        <h3 style="text-align: center;">Host Name :<b><i> <%=conn.dbsetup[0]%></i></b> &nbsp;   Database Name :<i> <%=conn.dbsetup[1]%></i></h3>
 
+    </div>
     <script src="scripts/chosen.jquery.js" type="text/javascript"></script>
     <script>
     jQuery(document).ready(function(){
@@ -3093,7 +3106,24 @@ mcount++;
 #title_chosen{
      width:600px;
 }   </style>
-    
+    <script>
+	$(document).ready(function() {
+	    $("#title").searchable({
+	        maxListSize: 100,                       
+	        maxMultiMatch: 50,                     
+	        exactMatch: false,                     
+	        wildcards: true,                       
+	        ignoreCase: true,                      
+	        latency: 200,                           
+	        warnMultiMatch: 'top {0} matches ...',  
+	        warnNoMatch: 'no matches ...',         
+	        zIndex: 'auto'                         
+
+	    });
+
+	});
+                
+	</script>  
 </body>
 </html>
 <%

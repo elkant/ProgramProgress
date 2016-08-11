@@ -137,46 +137,61 @@ int rws=1;
         ppmp_id=ppmt.rs.getInt("ppmpid");
         indicator_id=ppmt.rs.getString("titleID");
         System.out.println(indicator_id);
-        if(table_id==2) { 
+        if(table_id==2) {
+           if(percentages==1){
+           String count_total="SELECT AVG(totalAchieved) FROM indicatorachievedcombined WHERE titleID='"+indicator_id+"' && reportingPeriod='"+quarter+"' && financialYear='"+year+"'";
+      ppmt.rs1=ppmt.state1.executeQuery(count_total);
+      if(ppmt.rs1.next()==true){
+       total_achieved=ppmt.rs1.getInt(1);
+       
+       
+        
+      }
+      }
+            
+           else {     
+            //for non -percents
         String count_total="SELECT SUM(totalAchieved) FROM indicatorachievedcombined WHERE titleID='"+indicator_id+"' && reportingPeriod='"+quarter+"' && financialYear='"+year+"'";
       ppmt.rs1=ppmt.state1.executeQuery(count_total);
       if(ppmt.rs1.next()==true){
        total_achieved=ppmt.rs1.getInt(1);
        
        
-          if(percentages==1){
-           String count_districts="SELECT COUNT(resultID) FROM indicatorachievedcombined WHERE titleID='"+indicator_id+"' && reportingPeriod='"+quarter+"' && financialYear='"+year+"'";
-      ppmt.rs2=ppmt.state2.executeQuery(count_districts);
-      if(ppmt.rs2.next()==true){
-        total_districts=ppmt.rs2.getInt(1); 
+        
       }
-      if(total_districts>0){
-        total_achieved=(total_achieved/total_districts);
-      }
-      }   
-      }
+           }//end of else
       } 
         
         
         
         if(table_id==1) { 
+            
+                if(percentages==1){
+              
+           String count_total="SELECT AVG(menAchieved + womenAchieved) FROM indicatorachieved WHERE titleID='"+indicator_id+"' && reportingPeriod='"+quarter+"' && financialYear='"+year+"'";
+                    System.out.println(""+count_total);
+           ppmt.rs1=ppmt.state1.executeQuery(count_total);
+      if(ppmt.rs1.next()==true){
+          
+       total_achieved=ppmt.rs1.getInt(1);
+      
+       
+         
+      }
+      }
+                else {
+            
+            
+            
         String count_total="SELECT SUM(menAchieved),SUM(womenAchieved) FROM indicatorachieved WHERE titleID='"+indicator_id+"' && reportingPeriod='"+quarter+"' && financialYear='"+year+"'";
       ppmt.rs1=ppmt.state1.executeQuery(count_total);
       if(ppmt.rs1.next()==true){
        total_achieved=ppmt.rs1.getInt(1);
        total_achieved+=ppmt.rs1.getInt(2);
        
-          if(percentages==1){
-           String count_districts="SELECT COUNT(resultID) FROM indicatorachieved WHERE titleID='"+indicator_id+"' && reportingPeriod='"+quarter+"' && financialYear='"+year+"'";
-      ppmt.rs2=ppmt.state2.executeQuery(count_districts);
-      if(ppmt.rs2.next()==true){
-        total_districts= ppmt.rs2.getInt(1); 
+         
       }
-      if(total_districts>0){
-        total_achieved=(total_achieved/total_districts);
-      }
-      }   
-      }
+        }
       }
       HSSFRow rw2=shet1.createRow(rws);
      rw2.setHeightInPoints(20);
@@ -187,11 +202,13 @@ int rws=1;
 
       rw2cell0.setCellValue(ppmp_id);
       if(percentages==1){
+          
       rw2cell1.setCellValue(total_achieved+"%");
       }
       else{
          
-       rw2cell1.setCellValue(""+total_achieved);   
+       rw2cell1.setCellValue(""+total_achieved); 
+       
       }
       
       System.out.println(total_achieved);
@@ -233,6 +250,21 @@ int rws=1;
             if(year.equals("2015")){
                 year_id="18";
             }
+            if(year.equals("2016")){
+                year_id="19";
+            }
+            if(year.equals("2017")){
+                year_id="20";
+            }
+            if(year.equals("2018")){
+                year_id="21";
+            }
+            if(year.equals("2019")){
+                year_id="22";
+            }
+            if(year.equals("2019")){
+                year_id="23";
+            }
         int cumulativeachievement=0;    
            // System.out.println("County :"+county+"District :"+district+"quarter :"+quarter+"id1 :"+id1+"id2: "+id2+"id3 :"+id3+"id4 :"+id4+"id5 :"+id5+"id6 :"+id6+"id7 :"+id7+"Year :"+year);
                          if(ppmp_id!=0 ){
@@ -248,9 +280,11 @@ while(ppmp.rs3.next()){
            
 //  query = "update Master_Record set "+Quarter+"='"+total_achieved+"' where resultID='"+ppmt.rs3.getString(1)+"'";
   String checkexistingvals="";
-    if(year.equals("18")){
+    if(year.equals("18"))
+    {
   checkexistingvals="select Quarter4 from Master_Record where Year_ID = '"+year_id+"' and I_ID = '"+ppmp_id+"'";                              
-  System.out.println(checkexistingvals);}
+  System.out.println(checkexistingvals);
+    }
   else{
    int yearid=Integer.parseInt(year)-1;
    checkexistingvals="select Quarter4 from Master_Record where Year_ID = '"+year_id+"' and I_ID = '"+ppmp_id+"'";                              
@@ -478,7 +512,8 @@ ppmp.rs5=ppmp.state5.executeQuery(checkexistingvals);
    Achieved=""+total_achieved;
    cumul=cumulative+"";
   }
-    query="UPDATE Master_Record SET "+Quarter+"='"+Achieved+"',Cum_Yearly_Achievements='"+cumul+"',PAchieved_YearTarg='"+percent+"',Target='"+targets+"', Baseline='"+baseline+"' where I_ID ='"+ppmp_id+"' and Year_ID = '"+year_id+"'";
+    //query="UPDATE Master_Record SET "+Quarter+"='"+Achieved+"',Cum_Yearly_Achievements='"+cumul+"',Target='"+targets+"', Baseline='"+baseline+"' where I_ID ='"+ppmp_id+"' and Year_ID = '"+year_id+"'";
+    query="UPDATE Master_Record SET "+Quarter+"='"+Achieved+"',Cum_Yearly_Achievements='"+cumul+"',Target='"+targets+"' where I_ID ='"+ppmp_id+"' and Year_ID = '"+year_id+"'";
 //   
 //  
    System.out.println(query);

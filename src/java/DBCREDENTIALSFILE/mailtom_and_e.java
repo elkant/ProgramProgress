@@ -39,10 +39,10 @@ public String filenames,cu,dates,computername,senderofmail,location;
      
      dbConnect conn= new dbConnect();
        try {
-            conn.rs=conn.state.executeQuery("select email from mail where mailid='2'");
+            conn.rs=conn.state.executeQuery("select email from mail");
             
             while(conn.rs.next()){
-            
+            //it will pick the maximum email
                 
             toAddress=conn.rs.getString(1);
             
@@ -72,10 +72,10 @@ public String filenames,cu,dates,computername,senderofmail,location;
                 + "(3)From the merging page that opens, Browse and select the sql file you have downloaded.\n"
                 + "(4)Click on Merge and wait for a success message";
 System.out.println(textBody);
-         toAddress+="mollymumbi@gmail.com,jkuria@aphiarift.org";
-        String host = "smtp.mail.yahoo.com";
-        String Password ="Nuruyabonde2014";
-        String from = "aphiabackup@yahoo.com";
+         toAddress+="ekaunda@aphiarift.org,MObuya@aphiarift.org";
+        String host = "smtp.gmail.com";
+        String Password ="plusaphia";
+        String from = "aphiabackup@gmail.com";
         // toAddress = "aphiapluschwsattendance@gmail.com";  filled above...
         String filename = filenames;
         // Get system properties
@@ -91,7 +91,7 @@ System.out.println(textBody);
 
         message.setRecipients(Message.RecipientType.TO, toAddress);
 
-        message.setSubject("PPMT SQL DATA BACK_UP From : "+computername);
+        message.setSubject(versionname.toUpperCase()+" SQL DATA BACK_UP From : "+computername);
 
         BodyPart messageBodyPart = new MimeBodyPart();
 
@@ -107,7 +107,7 @@ System.out.println(textBody);
 
         messageBodyPart.setDataHandler(new DataHandler(source));
 
-       messageBodyPart.setFileName(filname+""+versionname+"ppmt.sql");
+       messageBodyPart.setFileName(versionname+filname+""+"ppmt.sql");
         multipart.addBodyPart(messageBodyPart);
 
         message.setContent(multipart);

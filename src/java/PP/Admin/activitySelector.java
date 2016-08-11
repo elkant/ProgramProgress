@@ -51,7 +51,7 @@ public class activitySelector extends HttpServlet {
            
           
            dbConnect conn=new dbConnect();
-           String activity ="select * from indicatoractivity where IndicatorID='"+titleID+"' OR IndicatorID='all'";
+           String activity ="select * from indicatoractivity where IndicatorID='"+titleID+"' OR IndicatorID='all' group by Activity order by Activity Asc";
          
            conn.rs=conn.state.executeQuery(activity);
            System.out.println(activity);

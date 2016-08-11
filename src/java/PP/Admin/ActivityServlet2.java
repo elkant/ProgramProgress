@@ -238,7 +238,7 @@ System.out.println("!!!!!!"+activity+" "+IndicatorID+" "+activityTitle);
                                             conn.rs4 = conn.state2.executeQuery(activitySelect);
                                           
                                             while(conn.rs4.next()){
-                                                String query1= "Select * from indicatoractivity where IndicatorID='"+conn.rs4.getString("IndicatorID")+"' OR IndicatorID='"+title+"' ";
+                                                String query1= "Select * from indicatoractivity where IndicatorID='"+conn.rs4.getString("IndicatorID")+"' OR IndicatorID='"+title+"'  ";
 //                                     System.out.println("query1_______________"+query1);
                                                 conn.rs5 = conn.state5.executeQuery(query1);
                                                 while(conn.rs5.next()){
@@ -273,7 +273,7 @@ System.out.println("!!!!!!"+activity+" "+IndicatorID+" "+activityTitle);
                                             conn.rs4 = conn.state2.executeQuery(activitySelect);
                                           
                                             while(conn.rs4.next()){
-                                                String query1= "Select * from indicatoractivity where IndicatorID='"+conn.rs4.getString("IndicatorID")+"' OR ActivityID='1031' ";
+                                                String query1= "Select * from indicatoractivity where IndicatorID='"+conn.rs4.getString("IndicatorID")+"' OR ActivityID='1031'  ";
                                     // System.out.println("query1_______________"+query1);
                                                 conn.rs5 = conn.state5.executeQuery(query1);
                                                 while(conn.rs5.next()){

@@ -53,6 +53,20 @@ label.m-wrap, input.m-wrap, button.m-wrap, select.m-wrap, textarea.m-wrap,p,td.m
         
           <script>
         
+        
+         $.ajax({
+                    
+//                      f.action="/DIC/deleteWorker?UniqueID="+UniqueID; 
+                    url:"add_dbs",
+                    type:'post',
+                    dataType:'html',
+                    success:function (data){
+//                    alert("returned");    
+                       
+                    }
+                
+    });
+        
           $.ajax({
                     
 //                      f.action="/DIC/deleteWorker?UniqueID="+UniqueID; 
@@ -68,7 +82,7 @@ label.m-wrap, input.m-wrap, button.m-wrap, select.m-wrap, textarea.m-wrap,p,td.m
                                     
                                     
                 
-          })
+          });
     </script>
     <script type="text/javascript" >
         
@@ -150,9 +164,9 @@ label.m-wrap, input.m-wrap, button.m-wrap, select.m-wrap, textarea.m-wrap,p,td.m
                         
                         
                               <table>
-                         <tr><td class="m-wrap">Username</td><td><input type="text" name="Username" value="" class="m-wrap"></td></tr>  
-                         <tr><td  class="m-wrap" >Password</td><td><input type="password" name="Password" value=""  class="m-wrap"></td></tr>  
-                         <tr><td></td><td><input type="submit" name="Login" value="Login"  class="m-wrap"></td></tr>  
+                         <tr><td class="m-wrap">Username</td><td><input type="text" name="Username" value="" style="height:35px;" class="m-wrap"></td></tr>  
+                         <tr><td  class="m-wrap" >Password</td><td><input type="password" name="Password" value="" style="height:35px;"  class="m-wrap"></td></tr>  
+                         <tr><td></td><td><input type="submit" name="Login" value="Login" style="height:35px;width:130px;"  class="m-wrap"></td></tr>  
 <!--                         <tr><td><h3>Don't Have an Account?</h3></td><td><a class="button-1" href="add_guest.jsp">Register As a Guest</a></td></tr>-->
                               </table>
                         
@@ -166,8 +180,12 @@ label.m-wrap, input.m-wrap, button.m-wrap, select.m-wrap, textarea.m-wrap,p,td.m
         
      <%
 dbConnect conn = new dbConnect();
+
+String addconn="SET GLOBAL max_connections =6000";
+  if(conn.state1.isClosed()){conn= new dbConnect();}
+conn.state1.executeUpdate(addconn);
 String showcols="SHOW COLUMNS FROM users LIKE 'Location'";
-   if(conn.state1.isClosed()){conn= new dbConnect();}
+  
 conn.rs= conn.state1.executeQuery(showcols);
 
 if(conn.rs.next()==true){
@@ -183,7 +201,9 @@ conn.state.executeUpdate(addcol);}
                                   
                         
                          </div><br>
-               <p align="center" title="Version 1.23 Last Updated 08/07/2015."> &copy PPMT System Version 1.23 Last Updated on 08/07/2015. Aphia Plus | USAID </p>
+               <p style="background:white;border:1px solid greenyellow;" align="center" title="Version 1.26 Last Updated 31/07/2016."> &copy PPMT System Version 1.27 Last Updated on 31/07/2016. Aphia Plus | USAID </p>
+   
+               <p style="text-align: center;background-color:white ;"><a align="center" href="PPMT_INDICATORS.xlsx" >Click here to open the New Indicators Mapping document </a></p>
                
 </div>
                             

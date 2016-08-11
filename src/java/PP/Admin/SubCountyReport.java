@@ -378,7 +378,7 @@ int percentages=0;
    String distCount="";
    int counters=0;
    
-     String indQuery = "select * from indicatortitles WHERE (tableIdentifier='1' ||tableIdentifier='2') and designation like '%"+designations[shts]+"%' ";
+     String indQuery = "select * from indicatortitles WHERE (tableIdentifier='1' ||tableIdentifier='2') and designation like '%"+designations[shts]+"%' and  active='yes' ";
             conn.rs5 = conn.state5.executeQuery(indQuery);
             while (conn.rs5.next()) {
 countDist=0;

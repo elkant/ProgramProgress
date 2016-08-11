@@ -38,7 +38,7 @@ HttpSession session;
       
         session=request.getSession();
         
-         mergeClerkData();
+         //mergeClerkData();
 dbConnectTemp conn = new dbConnectTemp();
 dbConnect conn1 = new dbConnect();
 
@@ -373,10 +373,11 @@ public  void mergeClerkData() throws SQLException{
 int numberofqueries=0;
         int existingdata=0;
         
-       
+       dbConnectTemp conn = new dbConnectTemp();
+dbConnect conn1 = new dbConnect();
         
-dbConnect conn = new dbConnect();
-dbConnect1 conn1 = new dbConnect1();
+//dbConnect conn = new dbConnect();
+//dbConnect1 conn1 = new dbConnect1();
 
 System.out.println("Merging Data for data clerk ");
 

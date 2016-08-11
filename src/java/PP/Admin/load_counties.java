@@ -31,7 +31,7 @@ String all_counties="";
             String current_row=request.getParameter("current_row");
              all_counties="<option value=\"0,"+current_row+"\"> Choose County</option>"; 
              
-            String get_counties="SELECT * FROM county";
+            String get_counties="SELECT * FROM county order by countyName ASC ";
             conn.rs=conn.state.executeQuery(get_counties);
             while(conn.rs.next()){
                 all_counties+="<option value=\""+conn.rs.getString(1) +","+current_row+"\">"+conn.rs.getString(2) +"</option>";

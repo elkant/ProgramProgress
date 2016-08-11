@@ -100,6 +100,7 @@ response.getWriter().print(value);
              conn.state.executeUpdate(query3);
 //             out.println("Saved, Refresh page");
         }
+        
         else if(columnName.equalsIgnoreCase("Others") ){
              query4 = "update indicatoractivities set activityOthers='"+value+"' where activityID='"+id+"'";
              conn.state.executeUpdate(query4);

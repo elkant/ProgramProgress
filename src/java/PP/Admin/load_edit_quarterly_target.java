@@ -91,10 +91,10 @@ int positioner,table_id,baseline_men,baseline_women,baseline_totals,target_men,t
       target_total=conn.rs.getInt("target_combined");
       String ct_id=conn.rs.getString("county_id");
        String dist_id=conn.rs.getString("district_id");
-               for (int i=2010;i<=2015;i++){
+               for (int i=2010;i<=2019;i++){
            int current_y=i;
          if(year==current_y){
-             all_years+="<option value=\""+current_y+","+positioner+"\" selected>"+current_y+"</option>";
+             all_years+="<option value=\""+current_y+","+positioner+"\" selected >"+current_y+"</option>";
          } 
          else{
              all_years+="<option value=\""+current_y+","+positioner+"\" >"+current_y+"</option>";

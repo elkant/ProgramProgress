@@ -96,7 +96,7 @@ document.getElementById("quarter").disabled=false;
    <br><br>
            <table style="width: 500px; margin-left: 320px;">
 <tr>
-    <th>Pepfar Year</th><th><select required="true" name="FinancialYear" id="financial" onchange="return add_years();">
+    <th>Pepfar Year</th><th><select style="height:38px;width:156px;" required="true" name="FinancialYear" id="financial" onchange="return add_years();">
                                        <option value="">Select Pepfar Year</option>
                                        <option value="2010">2010</option>
                                        <option value="2011">2011</option>
@@ -104,9 +104,13 @@ document.getElementById("quarter").disabled=false;
                                        <option value="2013">2013</option>
                                        <option value="2014">2014</option>
                                        <option value="2015">2015</option>
+                                       <option value="2016">2016</option>
+                                       <option value="2017">2017</option>
+                                       <option value="2018">2018</option>
+                                       <option value="2019">2019</option>
                                
                                </select></th>
-    <th>Quarter</th><th><select name="Quarter" required="true" id="quarter" disabled="true">
+    <th>Quarter</th><th><select style="height:38px;" name="Quarter" required="true" id="quarter" disabled="true">
                                        <option value="">Select Quarter</option>
                                        <option value="Q1">Oct-Dec ()</option>
                                        <option value="Q2">Jan-March()</option>
@@ -116,8 +120,8 @@ document.getElementById("quarter").disabled=false;
                                </select>
                                </tr>        
         
-               <tr><td>County <font style="color: blue">*</font> </td>
-                    <td>     <select  name="countyid" id="countyid" multiple="true">
+               <tr><th><b>County</b> <font style="color: blue">*</font> </th>
+                    <td>     <select style="height:120px;width:156px;" title="get data for subcounties within the selected county"  name="countyid" id="countyid" multiple="true">
   <%
             String QueryDists= "SELECT countyID,countyName FROM county  order by countyName";
             if(conn.state.isClosed()){conn= new dbConnect();}
@@ -142,7 +146,7 @@ document.getElementById("quarter").disabled=false;
                                 
                 </tr>                    
                  <tr>
-                     <th colspan="4"><input type="submit" value="Generate Report" /></th>
+                     <th colspan="4"><input type="submit" style="height:38px;" value="Generate Report" /></th>
                  
                  </tr>             
  </tr>                             

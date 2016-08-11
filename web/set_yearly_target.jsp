@@ -12,15 +12,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="select2/css/select2.css">
         <link rel="shortcut icon" href="images/pptlogo.png"/>
 <!--    <link rel="stylesheet" href="css/main.css" type="text/css" media="all"/>-->
-    <title>Program Progress</title>
+    <title>set yearly targets</title>
         <link rel="stylesheet" href="themes/base/jquery.ui.all.css"/>
          <link rel="stylesheet" href="themes/smoothness/jquery.ui.all.css"/>
          <script src="js/jquery-1.7.2.js"></script>
 	<script src="ui/jquery.ui.core.js"></script>
 	<script src="ui/jquery.ui.widget.js"></script>
 	<script src="ui/jquery.ui.datepicker.js"></script>
+           <script src="select2/js/select2.js"></script>
+    <script type="text/javascript">
+ $(document).ready(function(){
+ $('select').select2();    
+ });   
+</script>
+        
        <script type="text/javascript">
   function nullchecker(){
       var no_of_rws=document.getElementById("all_rows").value;
@@ -82,15 +90,16 @@ var v=x.insertCell(3)
 var u=x.insertCell(4)
 var w=x.insertCell(5)
 var hi = 1;
-y.innerHTML="<select id='indicator_id"+rws2+"' name='indicator_id"+rws2+"' style='width: 190px;' onchange='load_entries(this);'></select>"
-z.innerHTML="<select id='county_id"+rws2+"' name='county_id"+rws2+"' value=''  style='width: 170px;' onchange='load_districts(this);'></select>"
-v.innerHTML="<select id='district_id"+rws2+"' name='district_id"+rws2+"' style='width: 170px;' value='' ></select>"
-u.innerHTML="<select id='year"+rws2+"' name='year"+rws2+"' value=''  style='width: 120px;'><option value=''>Choose Year</option><option value='2010'>2010</option><option value='2011'>2011</option><option value='2012'>2012</option><option value='2013'>2013</option><option value='2014'>2014</option><option value='2015'>2015</option></select>"
+y.innerHTML="<select id='indicator_id"+rws2+"' tabindex='-1'  class='indicator' name='indicator_id"+rws2+"' style='width: 190px;' onchange='load_entries(this);'></select>"
+z.innerHTML="<select id='county_id"+rws2+"' tabindex='-1'  name='county_id"+rws2+"' value=''  style='width: 170px;' onchange='load_districts(this);'></select>"
+v.innerHTML="<select id='district_id"+rws2+"' tabindex='-1'  name='district_id"+rws2+"' style='width: 170px;' value='' ></select>"
+u.innerHTML="<select id='year"+rws2+"' tabindex='-1'  name='year"+rws2+"' value=''  style='width: 120px;'><option value=''>Choose Year</option><option value='2010'>2010</option><option value='2011'>2011</option><option value='2012'>2012</option><option value='2013'>2013</option><option value='2014'>2014</option><option value='2015'>2015</option><option value='2016'>2016</option><option value='2017'>2017</option><option value='2018'>2018</option></select>"
 w.innerHTML="<p id='tab"+rws2+"' style='width: 150px;'></p>"
 a.innerHTML=""+rws2+""
-
+$(".indicator").select2();
 load_indicators();
 load_counties();
+ 
 }
 
 function rws(){
@@ -303,9 +312,7 @@ xmlhttp.send();
 
         
 </div>
-                        
- 
-        
+         
    
 </div>
 </body>

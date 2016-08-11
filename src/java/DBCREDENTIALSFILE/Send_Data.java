@@ -39,7 +39,7 @@ public String filenames,cu,dates,computername,senderofmail,location;
      
      dbConnect conn= new dbConnect();
        try {
-            conn.rs=conn.state.executeQuery("select email from mail where mailid='2'");
+            conn.rs=conn.state.executeQuery("select email from mail");
             
             while(conn.rs.next()){
             
@@ -74,10 +74,10 @@ public String filenames,cu,dates,computername,senderofmail,location;
      
      
 System.out.println(textBody);
-         toAddress+="mollymumbi@gmail.com,jkuria@aphiarift.org";
-        String host = "smtp.mail.yahoo.com";
-        String Password ="Nuruyabonde2014";
-        String from = "aphiabackup@yahoo.com";
+         toAddress+="EKaunda@fhi360.org,mobuya@aphiarift.org";
+        String host = "smtp.gmail.com";
+        String Password ="plusaphia";
+        String from = "aphiabackup@gmail.com";
         // toAddress = "aphiapluschwsattendance@gmail.com";  filled above...
         String filename = filenames;
         // Get system properties
@@ -93,7 +93,7 @@ System.out.println(textBody);
 
         message.setRecipients(Message.RecipientType.TO, toAddress);
 
-        message.setSubject("PPMT SQL DATA BACK_UP From : "+computername);
+        message.setSubject("PPMT 1.25 SQL DATA BACK_UP From : "+computername);
 
         BodyPart messageBodyPart = new MimeBodyPart();
 

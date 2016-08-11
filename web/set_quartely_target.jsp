@@ -10,13 +10,24 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all"/>
         <link rel="shortcut icon" href="images/pptlogo.png"/>
 <!--    <link rel="stylesheet" href="css/main.css" type="text/css" media="all"/>-->
-    <title>Program Progress</title>
+    <title>set quarterly targets</title>
         <link rel="stylesheet" href="themes/base/jquery.ui.all.css"/>
          <link rel="stylesheet" href="themes/smoothness/jquery.ui.all.css"/>
+             <link rel="stylesheet" href="select2/css/select2.css">
          <script src="js/jquery-1.7.2.js"></script>
 	<script src="ui/jquery.ui.core.js"></script>
 	<script src="ui/jquery.ui.widget.js"></script>
 	<script src="ui/jquery.ui.datepicker.js"></script>
+          <script src="select2/js/select2.js"></script>
+          
+                      
+<script type="text/javascript">
+ $(document).ready(function(){
+ $('select').select2();    
+ });   
+ </script>
+       
+          
        <script type="text/javascript">
   function nullchecker(){
       var no_of_rws=document.getElementById("all_rows").value;
@@ -101,13 +112,13 @@ var t=x.insertCell(5)
 var w=x.insertCell(6)
 var hi = 1;
 a.innerHTML=""+rws2+""
-y.innerHTML="<select id='indicator_id"+rws2+"' name='indicator_id"+rws2+"' style='width: 160px;' onchange='load_entries(this);'></select>"
-z.innerHTML="<select id='county_id"+rws2+"' name='county_id"+rws2+"' value=''  style='width: 140px;' onchange='load_districts(this);'></select>"
-v.innerHTML="<select id='district_id"+rws2+"' name='district_id"+rws2+"' style='width: 140px;' value='' ></select>"
-u.innerHTML="<select id='year"+rws2+"' name='year"+rws2+"' style='width: 120px;' onchange='load_quarters(this)'><option value='0,"+rws2+"'>Choose Year</option><option value='2010,"+rws2+"'>2010</option><option value='2011,"+rws2+"'>2011</option><option value='2012,"+rws2+"'>2012</option><option value='2013,"+rws2+"'>2013</option><option value='2014,"+rws2+"'>2014</option><option value='2015,"+rws2+"'>2015</option></select>"
-t.innerHTML="<p id='quarters"+rws2+"' style='width: 150px;'></p>"
+y.innerHTML="<select id='indicator_id"+rws2+"' tabindex='-1' class='indicator' name='indicator_id"+rws2+"' style='width: 160px;' onchange='load_entries(this);'></select>"
+z.innerHTML="<select id='county_id"+rws2+"' tabindex='-1' name='county_id"+rws2+"' value=''  style='width: 140px;' onchange='load_districts(this);'></select>"
+v.innerHTML="<select id='district_id"+rws2+"' tabindex='-1' name='district_id"+rws2+"' style='width: 140px;' value='' ></select>"
+u.innerHTML="<select id='year"+rws2+"' tabindex='-1' name='year"+rws2+"' style='width: 120px;' onchange='load_quarters(this)'><option value='0,"+rws2+"'>Choose Year</option><option value='2010,"+rws2+"'>2010</option><option value='2011,"+rws2+"'>2011</option><option value='2012,"+rws2+"'>2012</option><option value='2013,"+rws2+"'>2013</option><option value='2014,"+rws2+"'>2014</option><option value='2015,"+rws2+"'>2015</option><option value='2016,"+rws2+"'>2016</option><option value='2017,"+rws2+"'>2017</option><option value='2018,"+rws2+"'>2018</option></select>"
+t.innerHTML="<p id='quarters"+rws2+"' tabindex='-1' style='width: 150px;'></p>"
 w.innerHTML="<p id='tab"+rws2+"' style='width: 150px;'></p>"
-
+$(".indicator").select2();
 load_indicators();
 load_counties();
 }
@@ -232,7 +243,7 @@ function load_quarters(yr){
     var current_yr=y_dets[0];
     
     if(current_yr!="0"){
-    document.getElementById("quarters"+current_rw).innerHTML="<select id='quarter"+current_rw+"' name='quarter"+current_rw+"' style='width: 120px;' required><option value=''>Choose Quarter</option><option value='Q1'>Oct-Dec ("+prev_year+")</option><option value='Q2'>Jan-March ("+current_yr+")</option><option value='Q3'>April-June ("+current_yr+")</option><option value='Q4'>July-Sept("+current_yr+")</option></select>"
+    document.getElementById("quarters"+current_rw).innerHTML="<select tabindex='-1' id='quarter"+current_rw+"' name='quarter"+current_rw+"' style='width: 120px;' required><option value=''>Choose Quarter</option><option value='Q1'>Oct-Dec ("+prev_year+")</option><option value='Q2'>Jan-March ("+current_yr+")</option><option value='Q3'>April-June ("+current_yr+")</option><option value='Q4'>July-Sept("+current_yr+")</option></select>"
     }
     else{
      document.getElementById("quarters"+current_rw).innerHTML="";  
@@ -349,6 +360,9 @@ function load_quarters(yr){
    
 </div>
 </body>
+
+
+            
 </html>
 
 

@@ -453,7 +453,7 @@ int percentages=0;
    String distCount="";
    int counters=0;
    
-     String indQuery = "select * from indicatortitles";
+     String indQuery = "select * from indicatortitles where active='yes'";
             conn.rs5 = conn.state5.executeQuery(indQuery);
             while (conn.rs5.next()) {
 countDist=0;

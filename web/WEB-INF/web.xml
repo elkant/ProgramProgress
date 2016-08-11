@@ -262,15 +262,15 @@
     </servlet>
     <servlet>
         <servlet-name>UploadDataTrial</servlet-name>
-        <servlet-class>PP.Admin.UploadDataTrial</servlet-class>
+        <servlet-class>UPLOADDATA.UploadDataTrial</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadData_HIVNonCum</servlet-name>
-        <servlet-class>PP.Admin.UploadData_HIVNonCum</servlet-class>
+        <servlet-class>UPLOADDATA.UploadData_HIVNonCum</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadHIVCumT14</servlet-name>
-        <servlet-class>PP.Admin.UploadHIVCumT14</servlet-class>
+        <servlet-class>UPLOADDATA.UploadHIVCumT14</servlet-class>
     </servlet>
     <servlet>
         <description>This servlet is used to bauk data frequently</description>
@@ -347,19 +347,19 @@
     </servlet>
     <servlet>
         <servlet-name>UploadOVCData</servlet-name>
-        <servlet-class>PP.Admin.UploadOVCData</servlet-class>
+        <servlet-class>UPLOADDATA.UploadOVCData</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadCYP</servlet-name>
-        <servlet-class>PP.Admin.UploadCYP</servlet-class>
+        <servlet-class>UPLOADDATA.UploadCYP</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadImmune</servlet-name>
-        <servlet-class>PP.Admin.UploadImmune</servlet-class>
+        <servlet-class>UPLOADDATA.UploadImmune</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadP61D</servlet-name>
-        <servlet-class>PP.Admin.UploadP61D</servlet-class>
+        <servlet-class>UPLOADDATA.UploadP61D</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>load_users</servlet-name>
@@ -391,7 +391,7 @@
     </servlet>
     <servlet>
         <servlet-name>UploadActivities</servlet-name>
-        <servlet-class>PP.Admin.UploadActivities</servlet-class>
+        <servlet-class>UPLOADDATA.UploadActivities</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReadCSV</servlet-name>
@@ -435,27 +435,27 @@
     </servlet>
     <servlet>
         <servlet-name>uploadfacility</servlet-name>
-        <servlet-class>PP.Admin.uploadfacility</servlet-class>
+        <servlet-class>UPLOADDATA.uploadfacility</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadOther</servlet-name>
-        <servlet-class>PP.Admin.UploadOther</servlet-class>
+        <servlet-class>UPLOADDATA.UploadOther</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>uploadCurrent</servlet-name>
-        <servlet-class>PP.Admin.uploadCurrent</servlet-class>
+        <servlet-class>UPLOADDATA.uploadCurrent</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Upload17N</servlet-name>
-        <servlet-class>PP.Admin.Upload17N</servlet-class>
+        <servlet-class>UPLOADDATA.Upload17N</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadChanges</servlet-name>
-        <servlet-class>PP.Admin.UploadChanges</servlet-class>
+        <servlet-class>UPLOADDATA.UploadChanges</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadOlmisPrevious</servlet-name>
-        <servlet-class>PP.Admin.UploadOlmisPrevious</servlet-class>
+        <servlet-class>UPLOADDATA.UploadOlmisPrevious</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getDuplicates</servlet-name>
@@ -480,6 +480,74 @@
     <servlet>
         <servlet-name>SubCountyReport</servlet-name>
         <servlet-class>PP.Admin.SubCountyReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadHIVCUMMULATIVE</servlet-name>
+        <servlet-class>UPLOADDATA.UploadHIVCUMMULATIVE</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QrynonHIV1</servlet-name>
+        <servlet-class>UPLOADDATA.QrynonHIV1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadNonHIV2</servlet-name>
+        <servlet-class>UPLOADDATA.UploadNonHIV2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>import_from_imis</servlet-name>
+        <servlet-class>IMIS.import_from_imis</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>imisquarters</servlet-name>
+        <servlet-class>IMIS.imisquarters</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>add_dbs</servlet-name>
+        <servlet-class>Scripts.add_dbs</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadOVCData_this_year</servlet-name>
+        <servlet-class>UPLOADDATA.UploadOVCData_this_year</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadOVCData_prior</servlet-name>
+        <servlet-class>UPLOADDATA.UploadOVCData_prior</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateindicators</servlet-name>
+        <servlet-class>Scripts.updateindicators</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomUpload</servlet-name>
+        <servlet-class>UPLOADDATA.CustomUpload</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>UPLOADDATA.NewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ppmpreport</servlet-name>
+        <servlet-class>PPMP.ppmpreport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updatebaseline</servlet-name>
+        <servlet-class>PPMP.updatebaseline</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>transferppmpdata_2013</servlet-name>
+        <servlet-class>PPMP.transferppmpdata_2013</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ovc_customupload_this_year</servlet-name>
+        <servlet-class>UPLOADDATA.ovc_customupload_this_year</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ovc_customupload_prior</servlet-name>
+        <servlet-class>UPLOADDATA.ovc_customupload_prior</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>insertquarterlytargets</servlet-name>
+        <servlet-class>Scripts.insertquarterlytargets</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -940,6 +1008,74 @@
     <servlet-mapping>
         <servlet-name>SubCountyReport</servlet-name>
         <url-pattern>/SubCountyReport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadHIVCUMMULATIVE</servlet-name>
+        <url-pattern>/UploadHIVCUMMULATIVE</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QrynonHIV1</servlet-name>
+        <url-pattern>/QrynonHIV1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadNonHIV2</servlet-name>
+        <url-pattern>/UploadNonHIV2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>import_from_imis</servlet-name>
+        <url-pattern>/import_from_imis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>imisquarters</servlet-name>
+        <url-pattern>/imisquarters</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>add_dbs</servlet-name>
+        <url-pattern>/add_dbs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadOVCData_this_year</servlet-name>
+        <url-pattern>/UploadOVCData_this_year</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadOVCData_prior</servlet-name>
+        <url-pattern>/UploadOVCData_prior</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateindicators</servlet-name>
+        <url-pattern>/updateindicators</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomUpload</servlet-name>
+        <url-pattern>/CustomUpload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ppmpreport</servlet-name>
+        <url-pattern>/ppmpreport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updatebaseline</servlet-name>
+        <url-pattern>/updatebaseline</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>transferppmpdata_2013</servlet-name>
+        <url-pattern>/transferppmpdata_2013</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ovc_customupload_this_year</servlet-name>
+        <url-pattern>/ovc_customupload_this_year</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ovc_customupload_prior</servlet-name>
+        <url-pattern>/ovc_customupload_prior</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>insertquarterlytargets</servlet-name>
+        <url-pattern>/insertquarterlytargets</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

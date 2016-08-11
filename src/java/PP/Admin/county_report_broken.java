@@ -384,7 +384,7 @@ shet1.addMergedRegion(new CellRangeAddress(0,0,1,17));
     
            
   int tableCounter=0;
-    String indicator_selector="SELECT * FROM indicatortitles WHERE (tableIdentifier='1' ||tableIdentifier='2') and designation like '%"+designations[shts]+"%' ";
+    String indicator_selector="SELECT * FROM indicatortitles WHERE (tableIdentifier='1' ||tableIdentifier='2') and active='yes' and designation like '%"+designations[shts]+"%' ";
     conn.rs=conn.state.executeQuery(indicator_selector);
     while(conn.rs.next()){
         tableCounter++;
@@ -1120,7 +1120,9 @@ if (conn.rs4.next()==true){
              } 
              // if q4 achieved this year is q7, if q3 achieved this year is q6
             else if((indicator_id.equals("47") || indicator_id.equals("49")||indicator_id.equals("46")||indicator_id.equals("55")||indicator_id.equals("53") )&& quarter.equals("Q4")){
-             String achieved_selector_this_year="SELECT SUM(totalAchieved),totalAchieved FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"')&& financialYear='2014' && reportingPeriod='Q7' && titleID='"+indicator_id+"' GROUP BY county";  
+             
+                if(year==2014){
+                String achieved_selector_this_year="SELECT SUM(totalAchieved),totalAchieved FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"')&& financialYear='2014' && reportingPeriod='Q7' && titleID='"+indicator_id+"' GROUP BY county";  
  conn.rs1=conn.state1.executeQuery(achieved_selector_this_year);
 if (conn.rs1.next()==true){
 //    ACHIEVED PER COUNTY TOTALS.............................     
@@ -1140,7 +1142,36 @@ if (conn.rs4.next()==true){
      
      
      //System.out.println("sssss"+achieved_this_year +"___"+achieved_this_year_total);
-     }     
+     }    
+                }//end of 2014
+                
+                
+   //------------------2015--------------------------
+     
+  if(year==2015){
+  
+  String achieved_selector_this_year="SELECT SUM(totalAchieved),totalAchieved FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"')&& financialYear='"+year+"' && reportingPeriod='Q10' && titleID='"+indicator_id+"' GROUP BY county";  
+ conn.rs1=conn.state1.executeQuery(achieved_selector_this_year);
+if (conn.rs1.next()==true){
+//    ACHIEVED PER COUNTY TOTALS.............................     
+     achieved_this_year=conn.rs1.getInt(1);
+     
+     }
+             
+        String achieved_selector_this_year1="SELECT sum(totalAchieved) FROM indicatorachievedcombined WHERE  financialYear='"+year+"' && reportingPeriod='Q10' && titleID='"+indicator_id+"' GROUP BY reportingPeriod";  
+ conn.rs4=conn.state4.executeQuery(achieved_selector_this_year1);
+if (conn.rs4.next()==true){
+//    ACHIEVED PER COUNTY TOTALS.............................     
+    
+     achieved_this_year_total=conn.rs4.getInt(1);
+
+     }   
+
+  }//end of 2015	 
+             
+                
+                
+                
              } 
              
              
@@ -1374,6 +1405,7 @@ else if((indicator_id.equals("47") || indicator_id.equals("49")
         && quarter.equals("Q4")){
 //       achieved_prior=0;     
 //         achieved_prior_total=0;
+    if(year==2014){
          String get_total_prior="SELECT SUM(indicatorachievedcombined.totalAchieved),totalAchieved FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && reportingPeriod='Q6' && financialYear='2014' && titleID='"+indicator_id+"'  GROUP BY county";  
       
          System.out.println("***"+get_total_prior);
@@ -1388,10 +1420,28 @@ else if((indicator_id.equals("47") || indicator_id.equals("49")
        while(conn.rs3.next()){
       achieved_prior_total=conn.rs3.getInt(1);     
           
+       }
+}
+  	
+		//========================Q42015===================
+		if(year==2015){
+		
+         String get_total_prior="SELECT SUM(indicatorachievedcombined.totalAchieved),totalAchieved FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && reportingPeriod='Q6' && financialYear='2015' && titleID='"+indicator_id+"' GROUP BY county";  
+      
+         System.out.println("***"+get_total_prior);
+         conn.rs2=conn.state2.executeQuery(get_total_prior);
+       while(conn.rs2.next()){
+      achieved_prior=conn.rs2.getInt(1);     
        } 
-       System.out.println(achieved_prior +"&&&&"+ achieved_prior_total);
        
-         System.out.println("inloop");
+         String get_total_prior1="SELECT SUM(indicatorachievedcombined.totalAchieved),totalAchieved FROM indicatorachievedcombined WHERE reportingPeriod='Q6' && financialYear='2015' && titleID='"+indicator_id+"' group by reportingPeriod"; 
+         conn.rs3=conn.state3.executeQuery(get_total_prior1);
+       while(conn.rs3.next()){
+      achieved_prior_total=conn.rs3.getInt(1);     
+          
+       } 
+		
+		}   
 
 }
 else if((indicator_id.equals("47")
@@ -2103,26 +2153,23 @@ if (conn.rs3.next()==true){
    
        System.out.println(achieved_this_year_m +"$$$"+ achieved_this_year_f);      
              }   
+            
+            
+            
              if(indicator_id.equals("54") && quarter.equals("Q4")  ){
-              String achieved_selector_this_year="SELECT SUM(menAchieved),SUM(womenAchieved),count(*) FROM indicatorachieved WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2014' && reportingPeriod='Q7' && titleID='"+indicator_id+"'  GROUP BY county";  
+                 
+     if(year==2014){
+ String achieved_selector_this_year="SELECT SUM(menAchieved),SUM(womenAchieved),count(*) FROM indicatorachieved WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2014' && reportingPeriod='Q7' && titleID='"+indicator_id+"'  GROUP BY county";  
  conn.rs1=conn.state1.executeQuery(achieved_selector_this_year);
- //System.out.println("!!!!!"+achieved_selector_this_year);
-  
+
 while (conn.rs1.next()){
 //    ACHIEVED PER COUNTY TOTALS.............................     
     
      System.out.println("$$$"+conn.rs1.getInt(1));
      achieved_this_year_m=conn.rs1.getInt(1);
      
-   
-    
-     
-    
       counterforyear=conn.rs1.getInt(3);
-      
-//    district_counter_yr1 =conn.rs1.getInt(3);
-     
-    
+
      achieved_this_year_f=conn.rs1.getInt(2);
      }
               String achieved_selector_this_year1="SELECT SUM(menAchieved),SUM(womenAchieved),count(*) FROM indicatorachieved WHERE financialYear='2014' && reportingPeriod='Q7' && titleID='"+indicator_id+"'  GROUP BY county";  
@@ -2133,13 +2180,49 @@ if (conn.rs3.next()==true){
    
     achieved_this_year_total_m=conn.rs3.getInt(1);
     district_counter_yr1 =conn.rs3.getInt(3);
+    achieved_this_year_total_f=conn.rs3.getInt(2); 
+   
+     }
+             }//end of 2014
+             
+     
+     //-----------------------------------2015------------
+     if(year==2015){ 
+ String achieved_selector_this_year="SELECT SUM(menAchieved),SUM(womenAchieved),count(*) FROM indicatorachieved WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2015' && reportingPeriod='Q10' && titleID='"+indicator_id+"' group by county";  
+ conn.rs1=conn.state1.executeQuery(achieved_selector_this_year);
+ //System.out.println("!!!!!"+achieved_selector_this_year);
+if (conn.rs1.next()==true){
+//    ACHIEVED PER COUNTY TOTALS.............................     
+    
+     System.out.println("$$$"+conn.rs1.getInt(1));
+     achieved_this_year_m+=conn.rs1.getInt(1);
+     
+   
+     //achieved_this_year_total_m=conn.rs1.getInt(1);
+     
+      achieved_this_year_f+=conn.rs1.getInt(2);
+      achieved_this_year_totals+=conn.rs1.getInt(3);
+    //district_counter_yr1 =conn.rs1.getInt(3);
+     
+    // achieved_this_year_total_f+=conn.rs1.getInt(2);
+	 
+	 } String achieved_selector_this_year1="SELECT SUM(menAchieved),SUM(womenAchieved),count(*) FROM indicatorachieved WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2015' && reportingPeriod='Q10' && titleID='"+indicator_id+"' group by reportingPeriod";  
+ conn.rs3=conn.state3.executeQuery(achieved_selector_this_year1);
+
+if (conn.rs3.next()==true){
+
+    achieved_this_year_total_m=conn.rs3.getInt(1);
+    district_counter_yr1 =conn.rs3.getInt(3);
       achieved_this_year_total_f=conn.rs3.getInt(2); 
-//     System.out.println(district_counter_yr1);
+
      
      }
-             
-       System.out.println(district_counter_yr1+"llll"   +counterforyear+"       "+achieved_this_year_m +"!!!"+ achieved_this_year_f +"____"+ achieved_this_year_total_f +" _____"+achieved_this_year_total_m);      
-             }
+	 
+	 
+}//end of 2015 
+     
+     
+         }
              
              else if (indicator_id.equals("54") && quarter.equals("Q1")  ){
              achieved_this_year_f= achieved_this_period_f;
@@ -2328,11 +2411,11 @@ String get_total_prior="SELECT SUM(menAchieved),SUM(womenAchieved),count(ResultI
 }
 }
 
- if(indicator_id.equals("54") && quarter.equals("Q4") && year==2014) {
+ if(indicator_id.equals("54") && quarter.equals("Q4") ) {
+     
+     if(year==2014){
   String get_total_prior="SELECT SUM(menAchieved),SUM(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2014' && titleID='"+indicator_id+"' GROUP BY county";  
       
-        // System.out.println("*****"+get_total_prior);
-         
          conn.rs2=conn.state2.executeQuery(get_total_prior);
        if(conn.rs2.next()==true){
       achieved_prior_m=conn.rs2.getInt(1);     
@@ -2357,7 +2440,42 @@ String get_total_prior="SELECT SUM(menAchieved),SUM(womenAchieved),count(ResultI
 
 }
 System.out.println(county_name+""+indicator_id+"totaldistsprior"+totaldistsprior +"____"+achieved_prior_f +"____"+achieved_prior_m +"totals"+ achieved_prior_total_f +"totas"+ achieved_prior_total_m);
+     }//end of 2014
+     
+    
+     
+	if(year==2015){
+       String get_total_prior="SELECT SUM(menAchieved),SUM(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2015' && titleID='"+indicator_id+"' GROUP BY county";  
+      
+         conn.rs2=conn.state2.executeQuery(get_total_prior);
+       if(conn.rs2.next()==true){
+      achieved_prior_m=conn.rs2.getInt(1);     
+      
+         achieved_prior_f=conn.rs2.getInt(2);     
+        
+            totaldistsprior=conn.rs2.getInt(3);
 }
+  String get_total_prior1="SELECT SUM(menAchieved),SUM(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6' && financialYear='2015' && titleID='"+indicator_id+"'";  
+      
+        // System.out.println("*****"+get_total_prior);
+         
+         conn.rs3=conn.state3.executeQuery(get_total_prior1);
+       while(conn.rs3.next()){
+          
+         achieved_prior_total_m= conn.rs3.getInt(1);
+              
+         achieved_prior_total_f= conn.rs3.getInt(2);
+         totaldistspriors      =conn.rs3.getInt(3);
+         
+         System.out.println("totals"+ achieved_prior_total_f +"totals"+ achieved_prior_total_m +""+totaldistspriors);
+
+}
+System.out.println(county_name+""+indicator_id+"totaldistsprior"+totaldistsprior +"____"+achieved_prior_f +"____"+achieved_prior_m +"totals"+ achieved_prior_total_f +"totas"+ achieved_prior_total_m);
+
+	}//end of 2015
+     
+     
+     }
 
  if(indicator_id.equals("54") && quarter.equals("Q1") && year==2015) {
   String get_total_prior="SELECT SUM(menAchieved),SUM(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q7'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2014' && titleID='"+indicator_id+"' GROUP BY county";  

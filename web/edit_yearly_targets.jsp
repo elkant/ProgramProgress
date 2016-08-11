@@ -10,15 +10,27 @@
 <head>
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all"/>
         <link rel="shortcut icon" href="images/pptlogo.png"/>
+             <link rel="stylesheet" href="select2/css/select2.css">
 <!--    <link rel="stylesheet" href="css/main.css" type="text/css" media="all"/>-->
-    <title>Program Progress</title>
+    <title>Edit yearly targets</title>
         <link rel="stylesheet" href="themes/base/jquery.ui.all.css"/>
          <link rel="stylesheet" href="themes/smoothness/jquery.ui.all.css"/>
          <script src="js/jquery-1.7.2.js"></script>
 	<script src="ui/jquery.ui.core.js"></script>
 	<script src="ui/jquery.ui.widget.js"></script>
 	<script src="ui/jquery.ui.datepicker.js"></script>
+        
+         <script src="select2/js/select2.js"></script>
+       
+          <script type="text/javascript">
+ $(document).ready(function(){
+ $('select').select2();    
+ });   
+</script>
+         
         <script type="text/javascript">
+            
+            
 function check_existence(){
     var indicator_id=document.getElementById("indicator_id").value;
     var year=document.getElementById("year").value;
@@ -177,6 +189,11 @@ while(conn.rs.next()){
         <option value='2013'>2013</option>
         <option value='2014'>2014</option>
         <option value='2015'>2015</option>
+        <option value='2016'>2016</option>
+        <option value='2017'>2017</option>
+        <option value='2018'>2018</option>
+        <option value='2019'>2019</option>
+        <option value='2020'>2020</option>
     </select></td>
 </tr>
  </table>

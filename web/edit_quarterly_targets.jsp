@@ -11,13 +11,21 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all"/>
         <link rel="shortcut icon" href="images/pptlogo.png"/>
 <!--    <link rel="stylesheet" href="css/main.css" type="text/css" media="all"/>-->
-    <title>Program Progress</title>
+    <title>edit quarterly targets</title>
         <link rel="stylesheet" href="themes/base/jquery.ui.all.css"/>
+         <link rel="stylesheet" href="select2/css/select2.css">
          <link rel="stylesheet" href="themes/smoothness/jquery.ui.all.css"/>
          <script src="js/jquery-1.7.2.js"></script>
 	<script src="ui/jquery.ui.core.js"></script>
 	<script src="ui/jquery.ui.widget.js"></script>
 	<script src="ui/jquery.ui.datepicker.js"></script>
+          <script src="select2/js/select2.js"></script>
+        <script type="text/javascript">
+ $(document).ready(function(){
+ $('select').select2();    
+ });   
+</script>
+        
         <script type="text/javascript">
 function check_existence(){
     var indicator_id=document.getElementById("indicator_id").value;
@@ -203,6 +211,9 @@ while(conn.rs.next()){
         <option value='2013,0'>2013</option>
         <option value='2014,0'>2014</option>
         <option value='2015,0'>2015</option>
+        <option value='2016,0'>2016</option>
+        <option value='2017,0'>2017</option>
+        <option value='2018,0'>2018</option>
     </select></td>
 <td>Choose Quarter : <select id="quarters0" name="quarters0" style='width: 120px;' onchange="return check_existence();">
         <option value=''>Choose Quarter</option>
@@ -223,6 +234,12 @@ while(conn.rs.next()){
         
    
 </div>
+<script>
+    
+     $('select').select2(); 
+    
+</script>
+
 </body>
 </html>
 

@@ -101,9 +101,7 @@
                     
                     var n = noty({text: '<%=session.getAttribute("datasend")%>',
                         layout: 'center',
-                        type: 'Success',
- 
-                         timeout: 4800});
+                        type: 'Success'});
                     
                 </script> <%
                 session.removeAttribute("datasend");
