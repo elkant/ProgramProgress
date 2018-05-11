@@ -54,18 +54,18 @@ label.m-wrap, input.m-wrap, button.m-wrap, select.m-wrap, textarea.m-wrap,p,td.m
           <script>
         
         
-         $.ajax({
-                    
-//                      f.action="/DIC/deleteWorker?UniqueID="+UniqueID; 
-                    url:"add_dbs",
-                    type:'post',
-                    dataType:'html',
-                    success:function (data){
-//                    alert("returned");    
-                       
-                    }
-                
-    });
+//         $.ajax({
+//                    
+////                      f.action="/DIC/deleteWorker?UniqueID="+UniqueID; 
+//                    url:"add_dbs",
+//                    type:'post',
+//                    dataType:'html',
+//                    success:function (data){
+////                    alert("returned");    
+//                       
+//                    }
+//                
+//    });
         
           $.ajax({
                     
@@ -113,7 +113,7 @@ label.m-wrap, input.m-wrap, button.m-wrap, select.m-wrap, textarea.m-wrap,p,td.m
                
            </div>
     
-    <div><h1 style="text-align: center"><img src="images/aphia_logo.png" height="70" width="200"/></h1></div> 
+
   <h2 style="text-align: center;">Program Progress Monitoring Tables</h2>
     <div style="clear:both">
          <div id="container">
@@ -200,10 +200,13 @@ conn.state.executeUpdate(addcol);}
     </div>
                                   
                         
-                         </div><br>
-               <p style="background:white;border:1px solid greenyellow;" align="center" title="Version 1.26 Last Updated 31/07/2016."> &copy PPMT System Version 1.27 Last Updated on 31/07/2016. Aphia Plus | USAID </p>
+                         </div>
+
+    <div><h1 style="text-align: center;height:100px;"><img src="images/aphia_logo.png" height="70" /></h1></div> 
+
+               <p style="background:white;border:1px solid greenyellow;" align="center" title="Version 1.29 Last Updated 10/04/2018."> &copy PPMT System Version 1.29 Last Updated on 10/04/2018. HSDSA | USAID </p>
    
-               <p style="text-align: center;background-color:white ;"><a align="center" href="PPMT_INDICATORS.xlsx" >Click here to open the New Indicators Mapping document </a></p>
+               <!--<p style="text-align: center;background-color:white ;"><a align="center" href="PPMT_INDICATORS.xlsx" >Click here to open the New Indicators Mapping document </a></p>-->
                
 </div>
                             

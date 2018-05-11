@@ -603,7 +603,7 @@ $( ".datepicker2" ).datepicker();
            </div>
     
 <!--    <div><h2 style="text-align: center"><font color="blue;">Program Progress Table</font></h2>-->
-<!--    <h1 style="text-align: center"><img src="images/aphia_logo.png" height="70" width="200"/></h1></div> -->
+<!--    <h1 style="text-align: center"><img src="images/aphia_logo.PNG" height="70" width="50%"/></h1></div> -->
 
                    <!--=========================================menu=========================================-->     
             <%

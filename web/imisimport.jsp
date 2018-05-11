@@ -3,6 +3,7 @@
     Created on : Jan 31, 2014, 8:55:23 AM
     Author     : Geofrey Nyabuto
 --%>
+<%@page import="PP.Admin.dbConnect"%>
 <%-- 
     Document   : county_quarter_report
     Created on : Jan 16, 2014, 9:20:20 AM
@@ -48,7 +49,7 @@
 //alert("previous year : "+prev_year)
 if(current_year!=""){
     var prev_year=current_year-1;
-document.getElementById("quarter").innerHTML="<option value=\"\">Select Quarter</option><option value=\"10_12_Q1\">Oct-Dec ("+prev_year +")</option><option value=\"01_03_Q2\">Jan-March("+ current_year+")</option><option value=\"04_06_Q3\">April-June("+current_year +")</option><option value=\"07_09_Q4\">July-Sept("+current_year +")</option>>";
+document.getElementById("quarter").innerHTML="<option value=\"\">Select Quarter</option><option value=\"10_12_Q1_31\">Oct-Dec ("+prev_year +")</option><option value=\"01_03_Q2_31\">Jan-March("+ current_year+")</option><option value=\"04_06_Q3_30\">April-June("+current_year +")</option><option value=\"07_09_Q4_30\">July-Sept("+current_year +")</option>>";
 document.getElementById("quarter").disabled=false;                
 }   
        if(current_year=="")     {
@@ -68,21 +69,37 @@ function changequarter(){
     var months=qtr.split("_");
    
     
-    start=year+months[0];
+    start=year+months[0]+"01";
     //if its quarter one, use the the previous year
-    if(qtr==="10_12_Q1"){    
-        start=prev_year+months[0];
+    if(qtr==="10_12_Q1_31"){    
+        start=prev_year+months[0]+"01";
         
     }
-    end=year+months[1];
-     if(qtr==="10_12_Q1"){    
-        end=prev_year+months[1];
+    end=year+months[1]+months[3];
+     if(qtr==="10_12_Q1_31"){    
+        end=prev_year+months[1]+months[3];
     }
     
     document.getElementById("startdate").value=start;
     document.getElementById("enddate").value=end;
     document.getElementById("quarterval").value=months[2];
 }
+
+function selectallindicators(){
+    if($("#chooseall").prop("checked")===true){
+    $("#indicators option").prop("selected",true);
+ 
+    }
+    else {
+        
+    $("#indicators option").prop("selected",false);
+    
+    }
+    
+    
+    
+}
+
 
         </script>
 <body>
@@ -171,17 +188,11 @@ function changequarter(){
                       <p style="text-align: center;">Select the fields as required then click sync Imis data.</p>
     
    <br><br>
-           <table style="width: 500px; margin-left: 320px;">
+           <table style="width: 500px; margin-left: 160px;">
 <tr>
     <th>Pepfar Year</th><th><select required="true" name="year" id="financial" onchange="return add_years();">
                                        <option value="">Select Pepfar Year</option>
-                                       <option value="2010">2010</option>
-                                       <option value="2011">2011</option>
-                                       <option value="2012">2012</option>
-                                       <option value="2013">2013</option>
-                                       <option value="2014">2014</option>
-                                       <option value="2015">2015</option>
-                                       <option value="2016">2016</option>
+                                       
                                        <option value="2017">2017</option>
                                        <option value="2018">2018</option>
                                        <option value="2019">2019</option>
@@ -190,13 +201,42 @@ function changequarter(){
     <th>Quarter</th>
     <th><select name="quarter" onchange="changequarter();" required="true" id="quarter" disabled="true">
                                        <option value="">Select Quarter</option>
-                                       <option value="10_12_Q1">Oct-Dec ()</option>
-                                       <option value="01_03_Q2">Jan-March()</option>
-                                       <option value="04_06_Q3">April-June()</option>
-                                       <option value="07_09_Q4">July-Sept()</option>
+                                       <option value="10_12_Q1_31">Oct-Dec ()</option>
+                                       <option value="01_03_Q2_31">Jan-March()</option>
+                                       <option value="04_06_Q3_30">April-June()</option>
+                                       <option value="07_09_Q4_30">July-Sept()</option>
 
                                </select>
-                               </tr>        
+                               </th>
+    
+    <th>All Indicators</th><th><input type="checkbox" title="click to select all the indicators" id="chooseall" onclick="selectallindicators();"></th>
+   
+
+</tr>    
+               
+               <tr>
+                   <th colspan='5'>
+                                   <select required name="indicators" id="indicators" multiple style="height:200px;width:900px;margin-left:0px;">
+                   
+<%  String activeindics="select indicatorid,title from imis_ppmt join indicatortitles on indicatortitles.titleID=imis_ppmt.indicatorid where imis_ppmt.active='1'";
+
+ dbConnect conn=new dbConnect();
+ 
+conn.rs=conn.state.executeQuery(activeindics);
+
+while(conn.rs.next()){
+
+out.println("<option value='"+conn.rs.getString(1)+"'>"+conn.rs.getString(2)+"...</option>");
+
+
+}
+
+%>
+                               </select>
+                               </th>
+                   
+               </tr>
+               
         
                    <tr>
                      <th colspan="4"><input type="hidden" name="startdate" id="startdate"></th>
@@ -211,22 +251,22 @@ function changequarter(){
  </tr>                             
  </table>
            <br/>
-           <div style="background: white;">
+<!--           <div style="background: white;">
                <h4 style="text-align: center;">Note: Below are name of worksheets . Refer the whole excel file <a href="PPTQ42015.xlsx">here</a>  </h4>
-           <h3 style="text-align: center;"> DATA SYNCED BY THIS MODULE  </h3>
-           <h3 style="text-align: left;"> 1) QryHIV - cummulative  </h3>
-           <h3 style="text-align: left;"> 2) QryHIV - noncummulative  </h3>
-           <h3 style="text-align: left;"> 3) QryNonHIV1 </h3>
-           <h3 style="text-align: left;"> 4) QryNonHIV2 </h3>
+           <h4 style="text-align: center;"> DATA SYNCED BY THIS MODULE  </h4>
+           <h4 style="text-align: left;"> 1) QryHIV - cummulative  </h4>
+           <h4 style="text-align: left;"> 2) QryHIV - noncummulative  </h4>
+           <h4 style="text-align: left;"> 3) QryNonHIV1 </h4>
+           <h4 style="text-align: left;"> 4) QryNonHIV2 </h4>
            </div>
            <br/>
            <div style="background: white;">
-           <h3 style="text-align: center;"> DATA PUSHED VIA BACKEND /TYPED (Komen to share) </h3>
-           <h3 style="text-align: left;"> 1) QryNonHIV3  </h3>
-           <h3 style="text-align: left;"> 2) Others  </h3>
-           <h3 style="text-align: left;"> 3) Diarrhea </h3>
+           <h4 style="text-align: center;"> DATA PUSHED VIA BACKEND /TYPED (Komen & Michael to share) </h4>
+           <h4 style="text-align: left;"> 1) QryNonHIV3  </h4>
+           <h4 style="text-align: left;"> 2) Others  </h4>
+           <h4 style="text-align: left;"> 3) Diarrhea </h4>
            <h3 style="text-align: left;"> 4) VMMC <i>  (entered manually)</i> </h3>
-           </div>
+           </div>-->
      </form> 
     
        

@@ -2797,11 +2797,11 @@ mcount++;
                                       <img src="images/help_24.png"/></a></h4>
     
     
-                           <tr>   <td><input type="button" value="Add Row" style="background-color: #c66200;" onClick="addResultRow('tablerow1')" /></td>
-                         <td><input type="button" value="Delete Row" style="background-color: #c66200;" onClick="deleteResultRow('tablerow1')" /></td></tr>
+                           <tr>   <td><input type="button" value="Add Row" style="background-color: #c66200;display:none;" onClick="addResultRow('tablerow1')" /></td>
+                         <td><input type="button" value="Delete Row" style="background-color: #c66200;display:none;" onClick="deleteResultRow('tablerow1')" /></td></tr>
                           
                                    
-                                                   <table style=''  class="fixed" id="tablerow1"  >
+                                                   <table style='display:none;'  class="fixed" id="tablerow1"  >
                                                                                          
 <tr id="dialog3" title="Program Progress Helpddd ">
   
@@ -2835,9 +2835,9 @@ mcount++;
                                       <th colspan="2"></th>
                                    
                                     
-<!--                                      <th style="width:10px;">County</th>
+                                      <th style="width:10px;">County</th>
                                       <th style="width:10px;">District</th>
-                                     -->
+                                     
                                    
                                      
                                     
@@ -2881,11 +2881,11 @@ mcount++;
             
                         
                         </table> 
-<!--                        <table id="tablerow1" class="fixed"> 
+                        <table id="tablerow1" class="fixed"> 
                          
                         
                         
-                        </table>  -->
+                        </table>  
                                 </form>
     
         
@@ -3004,16 +3004,16 @@ mcount++;
                                              
                                          
                             
-<!--            <table id="results2" class="fixed">
+            <table id="results2" class="fixed">
                         
             
-            </table> -->
+            </table> 
                       <!--results2--->                        
             
             <table id="" class="fixed">
-              <!--<tr>-->     
+              <tr>     
                                      
-<!--                                    
+                                    
                                       <th>ADDITIONAL CRITERIA</th>
                                       <th>BASELINE</th>
                                       <th>RESULTS ACHIEVED PRIOR PERIODS</th>
@@ -3045,7 +3045,7 @@ mcount++;
                                       <th>Total</th>
                                       
                                       <th>Total</th>
-                                      <th>Total</th>  -->
+                                      <th>Total</th>  
                                       <label>
                    <input name="resultcounts1" type="hidden" id="g1" value="1" />
                    <input name="newresultrows1" type="hidden" id="newresultrows1" value="0" />

@@ -6,7 +6,7 @@ body {
 }
 .example {
     position:relative;
-/*    background: no-repeat #fff url(../images/aphia_logo.png);*/
+/*    background: no-repeat #fff url(../images/aphia_logo.PNG);*/
     background-color: #f6a828 ;
     width:770px;
     height:470px;

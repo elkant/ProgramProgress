@@ -265,7 +265,7 @@ width: 5em;
 
             <!--=====================================================================================--> 
 
-<!--    <div><h1 style="text-align: center"><img src="images/aphia_logo.png" height="70" width="200"/></h1></div> 
+<!--    <div><h1 style="text-align: center"><img src="images/aphia_logo.PNG" height="70" width="50%"/></h1></div> 
   
 <div class="menuholder">
         <ul class="menu slide">

@@ -41,8 +41,8 @@ public class importSQLData1 extends HttpServlet {
      private static final long serialVersionUID = 1L;
 
     private static final String DATA_DIRECTORY = "PPTDATA";
-    private static final int MAX_MEMORY_SIZE = 1024 * 1024 * 2;
-    private static final int MAX_REQUEST_SIZE = 1024 * 1024;
+    private static final int MAX_MEMORY_SIZE = 1024 * 1024 * 20;
+    private static final int MAX_REQUEST_SIZE = 1024 * 1024*4;
     HttpSession session;
     String filename="";
 String dbname,dbuser,dbpassword;
@@ -189,7 +189,7 @@ String[] executeCmd1=null;
               String current_drive=myalphabet[i];
               File f =  new File(current_drive+":\\wamp\\mysql\\bin\\");
               File f1 = new File(current_drive+":\\wamp\\bin\\mysql\\mysql5.6.12\\bin");
-              File f2 = new File(current_drive+":\\Program Files\\MySQL\\MySQL Server 5.5\\bin");
+              File f2 = new File(current_drive+":\\Program Files\\MySQL\\MySQL Server 5.7\\bin");
              
 System.out.println(localhostsplit[0]);
 System.out.println(localhostsplit[1]);
@@ -216,7 +216,7 @@ found_folder="it is new wamp";
 }
  if (f2.exists() && f2.isDirectory()){
 
- executeCmd1 = new String[]{current_drive+":\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysql","--host="+localhostsplit[0], "--port="+localhostsplit[1],"--user=" + dbuser, "--password=" + dbpassword, dbname,"-e", " source "+filePath};  
+ executeCmd1 = new String[]{current_drive+":\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysql","--host="+localhostsplit[0], "--port="+localhostsplit[1],"--user=" + dbuser, "--password=" + dbpassword, dbname,"-e", " source "+filePath};  
 
 
 found_folder="it is workbench";

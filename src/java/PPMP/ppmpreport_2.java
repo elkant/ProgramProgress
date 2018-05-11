@@ -32,7 +32,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
  *
  * @author Emmanuel E
  */
-public class ppmpreport extends HttpServlet {
+public class ppmpreport_2 extends HttpServlet {
 
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -50,9 +50,9 @@ public class ppmpreport extends HttpServlet {
  // this should be dynamic because of the annual cumulatives depending on the selected year
  //the minimum year is 2011
  //
-            int selectedyear=2018;
-            int projectstartyear=2018;
-            int minimumcolumns=9;//this is if the year is 2011
+            int selectedyear=2016;
+            int projectstartyear=2011;
+            int minimumcolumns=11;//this is if the year is 2011
             int currentcolumns=minimumcolumns+(selectedyear-projectstartyear);
             String selectedQTR="Q2";
             
@@ -90,9 +90,9 @@ String sec=String.format("%02d",cal.get(Calendar.SECOND));
               
             HSSFFont font = wb.createFont();
             font.setFontHeightInPoints((short) 12);
-            font.setFontName("Times New Roman");
+            font.setFontName("Arial Narrow");
             font.setColor((short) 0000);
-            font.setBoldweight(HSSFFont.COLOR_NORMAL);
+            font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             
             
             CellStyle style = wb.createCellStyle();
@@ -115,13 +115,13 @@ String sec=String.format("%02d",cal.get(Calendar.SECOND));
             spstyle.setBorderLeft(HSSFCellStyle.BORDER_THICK);
             spstyle.setBorderRight(HSSFCellStyle.BORDER_THICK);
             spstyle.setAlignment(HSSFCellStyle.ALIGN_LEFT);
-            spstyle.setFillForegroundColor(HSSFColor.ORANGE.index);
+            spstyle.setFillForegroundColor(HSSFColor.LIGHT_BLUE.index);
             spstyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
             spstyle.setWrapText(true);
             System.out.println("Blue index:"+HSSFColor.BLUE.index);
             
             HSSFFont font2 = wb.createFont();
-            font2.setFontName("Times New Roman");
+            font2.setFontName("Cambria");
             font2.setColor((short) 0000);
             CellStyle style2 = wb.createCellStyle();
             style2.setFont(font2);
@@ -151,7 +151,7 @@ String sec=String.format("%02d",cal.get(Calendar.SECOND));
 
             HSSFFont fontx = wb.createFont();
             fontx.setColor(HSSFColor.BLACK.index);
-            fontx.setFontName("Times New Roman");
+            fontx.setFontName("Arial Narrow");
             fontx.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             fontx.setFontHeightInPoints((short) 16);
             stylex.setFont(fontx);
@@ -187,8 +187,8 @@ String sec=String.format("%02d",cal.get(Calendar.SECOND));
   
   ArrayList headerone=new ArrayList();
   //headerone.add("Sub Purpose");
-  headerone.add("Code");
-  headerone.add("Indicator");
+  headerone.add("Output");
+  headerone.add("Indicators");
   headerone.add("Baseline");
   headerone.add("Year "+selectedyear+" Target");
   headerone.add(selectedyear+" Quarterly Achievements ");
@@ -214,8 +214,8 @@ headerone.add("Percentage (%) Achieved vs Year "+selectedyear);
 
 ArrayList headertwo=new ArrayList();
   //headertwo.add("Sub Purpose");
-  headertwo.add("Code");
-  headertwo.add("Indicator");
+  headertwo.add("Output");
+  headertwo.add("Indicators");
   headertwo.add("Baseline");
   headertwo.add("");
   headertwo.add("Oct-Dec "+(selectedyear-1));
@@ -307,7 +307,7 @@ headertwo.add("");
 //===================================================================================
  
  
- String getindicators="select * from indicatortitles where  active='yes' order by output , title ";
+ String getindicators="select * from indicatortitles where  active='yes' order by subpurpose, output , title ";
  
             dbConnect conn= new dbConnect();
             
@@ -316,7 +316,7 @@ headertwo.add("");
            
             shet.setColumnWidth(1,14000);
             shet.setColumnWidth(2,2300);
-            shet.setColumnWidth(0,2100);
+            shet.setColumnWidth(0,7000);
             shet.setColumnWidth(3,2300);
             shet.setColumnWidth(4,2300);
             shet.setColumnWidth(5,2300);
@@ -338,12 +338,11 @@ headertwo.add("");
             int outputrowcopy=4;
         int colpos=0;
           int count=0; 
-            int rowgani=1;
+            
  while(conn.rs.next()){
-     System.out.println("SP__"+conn.rs.getString("output"));
+     System.out.println("SP__"+conn.rs.getString("subpurpose"));
      //merge subpartner row
-     sp.add(conn.rs.getString("output"));
-     
+     sp.add(conn.rs.getString("subpurpose"));
      if(sp.size()>1){
      //check if subporpose has changed
       if(!sp.get(count).toString().equals(sp.get(count-1).toString())){
@@ -356,14 +355,14 @@ headertwo.add("");
      HSSFRow rwxa=shet.createRow(rownumber);
      
      HSSFCell cl01=rwxa.createCell(colpos);
-     cl01.setCellValue(conn.rs.getString("output"));
+     cl01.setCellValue(conn.rs.getString("subpurpose"));
      cl01.setCellStyle(spstyle);
      
      
      
             subpurposerowcopy=subpurposerow;
       //should merge entire row
-       shet.addMergedRegion(new CellRangeAddress(subpurposerow,subpurposerow, 0 ,9));     
+       shet.addMergedRegion(new CellRangeAddress(subpurposerow,subpurposerow, 0 ,15));     
 
       
      
@@ -383,13 +382,15 @@ headertwo.add("");
      HSSFRow rwxa=shet.createRow(rownumber);
      
      HSSFCell cl01=rwxa.createCell(colpos);
-     cl01.setCellValue(conn.rs.getString("output"));
+     cl01.setCellValue(conn.rs.getString("subpurpose"));
      cl01.setCellStyle(spstyle);
      
             subpurposerowcopy=subpurposerow;
       //should merge entire row
-       shet.addMergedRegion(new CellRangeAddress(subpurposerow,subpurposerow, 0 ,9));     
+       shet.addMergedRegion(new CellRangeAddress(subpurposerow,subpurposerow, 0 ,15));     
 
+      
+     
      
       rownumber++;
      
@@ -428,8 +429,7 @@ headertwo.add("");
      
      //====================================================output============================= 
      HSSFCell cl02=rwx.createCell(colpos);
-   //  cl02.setCellValue(conn.rs.getString("output"));
-     cl02.setCellValue(rownumber);
+     cl02.setCellValue(conn.rs.getString("output"));
      cl02.setCellStyle(style2);
      
      colpos++;
@@ -503,30 +503,17 @@ headertwo.add("");
      ispercent="%";
           if(conn.rs.getString("tableIdentifier").equals("1")){
      //by gender and thus separate columns
-          if(selectedyear>=2018)
-          {
-     getdata=" select  ROUND((sum(case  when  reportingPeriod='Q1' then ((men_numerator + women_numerator)) end)/sum(case  when  reportingPeriod='Q1' then ((men_denominator + women_denominator)) end))*100 ) as Q1, ROUND((sum(case  when  reportingPeriod='Q2' then ((men_numerator + women_numerator)) end)/sum(case  when  reportingPeriod='Q2' then ((men_denominator + women_denominator)) end))*100 ) as Q2, ROUND((sum(case  when  reportingPeriod='Q3' then ((men_numerator + women_numerator)) end)/sum(case  when  reportingPeriod='Q3' then ((men_denominator + women_denominator)) end))*100 ) as Q3, ROUND((sum(case  when  reportingPeriod='Q4' then ((men_numerator + women_numerator)) end)/sum(case  when  reportingPeriod='Q4' then ((men_denominator + women_denominator)) end))*100 ) as Q4 from indicatorachieved   where titleID='"+conn.rs.getString("titleID")+"' and financialyear='"+selectedyear+"' group by titleID ";
+         
+     getdata=" select  ROUND(AVG(case  when  reportingPeriod='Q1' then ((menAchieved + womenAchieved)/2) end)) as Q1, ROUND(AVG(case  when  reportingPeriod='Q2' then ((menAchieved + womenAchieved)/2) end)) as Q2, ROUND(AVG(case  when  reportingPeriod='Q3' then ((menAchieved + womenAchieved)/2) end)) as Q3, ROUND(AVG(case  when  reportingPeriod='Q4' then ((menAchieved + womenAchieved)/2) end)) as Q4 from indicatorachieved   where titleID='"+conn.rs.getString("titleID")+"' and financialyear='"+selectedyear+"' group by titleID ";
               System.out.println("@@"+getdata);
-          }
-          
-    else {
-            getdata=" select  ROUND(AVG(case  when  reportingPeriod='Q1' then ((menAchieved + womenAchieved)/2) end)) as Q1, ROUND(AVG(case  when  reportingPeriod='Q2' then ((menAchieved + womenAchieved)/2) end)) as Q2, ROUND(AVG(case  when  reportingPeriod='Q3' then ((menAchieved + womenAchieved)/2) end)) as Q3, ROUND(AVG(case  when  reportingPeriod='Q4' then ((menAchieved + womenAchieved)/2) end)) as Q4 from indicatorachieved   where titleID='"+conn.rs.getString("titleID")+"' and financialyear='"+selectedyear+"' group by titleID ";
-      
-          }
+     
           }
           
           else {
           //combined i.e male and female
-          if(selectedyear>=2018){
-              getdata="select ROUND((SUM(case  when  reportingPeriod='Q1' then numerator end)/SUM(case  when  reportingPeriod='Q1' then denominator end))*100) as Q1  , ROUND((SUM(case  when  reportingPeriod='Q2' then numerator end)/SUM(case  when  reportingPeriod='Q2' then denominator end))*100) as Q2, ROUND((SUM(case  when  reportingPeriod='Q3' then numerator end)/SUM(case  when  reportingPeriod='Q3' then denominator end))*100) as Q3, ROUND((SUM(case  when  reportingPeriod='Q4' then numerator end)/SUM(case  when  reportingPeriod='Q4' then denominator end))*100) as Q4   from indicatorachievedcombined    where titleID='"+conn.rs.getString("titleID")+"' and financialyear='"+selectedyear+"' group by titleID ";
-          }
-          else {
-              //use old way of averages
-          getdata=" select ROUND(AVG(case  when  reportingPeriod='Q1' then totalAchieved end)) as Q1,ROUND(AVG(case  when  reportingPeriod='Q2' then totalAchieved end)) as Q2, ROUND(AVG(case  when  reportingPeriod='Q3' then totalAchieved end)) as Q3, ROUND(AVG(case  when  reportingPeriod='Q4' then totalAchieved end)) as Q4  from indicatorachievedcombined    where titleID='"+conn.rs.getString("titleID")+"' and financialyear='"+selectedyear+"' group by titleID ";
-      
-          }
-              System.out.println("@@"+getdata);
-          
+              getdata=" select ROUND(AVG(case  when  reportingPeriod='Q1' then totalAchieved end)) as Q1,ROUND(AVG(case  when  reportingPeriod='Q2' then totalAchieved end)) as Q2, ROUND(AVG(case  when  reportingPeriod='Q3' then totalAchieved end)) as Q3, ROUND(AVG(case  when  reportingPeriod='Q4' then totalAchieved end)) as Q4  from indicatorachievedcombined    where titleID='"+conn.rs.getString("titleID")+"' and financialyear='"+selectedyear+"' group by titleID ";
+     
+           System.out.println("@@"+getdata);
           }
      }
      //non percentages
@@ -552,7 +539,7 @@ headertwo.add("");
      String Q4="";
      
      conn.rs1=conn.state1.executeQuery(getdata);
-     
+    
      //Q1
       
      HSSFCell clQ1=rwx.createCell(colpos);colpos++;
@@ -654,34 +641,18 @@ headertwo.add("");
   annualispercent="%";
       if(conn.rs.getString("tableidentifier").equals("2")){
       //no gender thus its combined 
-       if( yearval>=2018 )
-          {
           
-           qry=" select ROUND((SUM(case  when  financialYear='"+selectedyear+"' then numerator end)/SUM(case  when   financialYear='"+selectedyear+"' then denominator end))*100)  as y"+yearval+" from indicatorachievedcombined where financialyear='"+yearval+"' and titleID='"+conn.rs.getString("titleID")+"' group by titleID";    
-      
-          }
-       else {
       qry=" select ROUND(AVG(totalAchieved))  as y"+yearval+" from indicatorachievedcombined where financialyear='"+yearval+"' and titleID='"+conn.rs.getString("titleID")+"' group by titleID";    
-       
-       }
+   
       
       }
       else {
       
-            if( yearval>=2018 )
-          {
-          
-       qry=" select ROUND((sum(case  when  financialYear='"+selectedyear+"' then ((men_numerator + women_numerator)) end)/sum(case  when  financialYear='"+selectedyear+"' then ((men_denominator + women_denominator)) end))*100)  as y"+yearval+" from indicatorachieved where financialyear='"+yearval+"' and titleID='"+conn.rs.getString("titleID")+"' group by titleID";    
-          }
-            else {
-       
-       
        qry=" select ROUND(AVG((menAchieved + womenAchieved)/2))  as y"+yearval+" from indicatorachieved where financialyear='"+yearval+"' and titleID='"+conn.rs.getString("titleID")+"' group by titleID";    
-            
-            }
+      
       
          }
-    
+      
       
   }
   
@@ -710,15 +681,9 @@ else {
      }//end of else of table identifier
       
   }//end of sum/cumulatives
-     else {
      
-      System.out.println("failed:"+conn.rs.getString("cumulative_chooser")+" *** "+conn.rs.getString("title")); 
-     
-     }  
      
        }//end of else of non percents
-  
-  
        System.out.println("@"+qry);    
   
     conn.rs1=conn.state1.executeQuery(qry);
@@ -902,7 +867,7 @@ else {
     //achieved nonpercentage
                   if(yearval==selectedyear){
                    
-                      if(annualtarget!=1&&annualtarget!=0){
+                      if(annualtarget!=1){
                     achievednonpercent=""+(int)currentyearvalue*100/(int)annualtarget+"%";
                       }
                     }
@@ -989,7 +954,7 @@ outStream.flush();
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ppmpreport.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ppmpreport_2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1007,7 +972,7 @@ outStream.flush();
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ppmpreport.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ppmpreport_2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

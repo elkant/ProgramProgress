@@ -101,7 +101,8 @@ String Location="";
                                         }
                                         
                        
-                                    else if(conn.rs.getString("AccessLevel").equalsIgnoreCase("1")){
+                                    else if(conn.rs.getString("AccessLevel").equalsIgnoreCase("1"))
+                                    {
                                             session= request.getSession(true);
                                             session.setAttribute("Username", conn.rs.getString("Username"));
                                             session.setAttribute("userid", conn.rs.getString("UserID"));
@@ -151,7 +152,8 @@ String Location="";
        
                                                
                                         }
-                          else  {
+                          else  
+                                       {
                                            //if(conn.rs.getString("AccessLevel").equalsIgnoreCase("2") || conn.rs.getString("AccessLevel").equalsIgnoreCase("4")||conn.rs.getString("AccessLevel").equalsIgnoreCase("6")||conn.rs.getString("AccessLevel").equalsIgnoreCase("5")||conn.rs.getString("AccessLevel").equalsIgnoreCase("7")||conn.rs.getString("AccessLevel").equalsIgnoreCase("8")){
                                             session= request.getSession(true);
                                             session.setAttribute("Username", conn.rs.getString("Username"));
@@ -165,7 +167,7 @@ String Location="";
                                             session.setAttribute("loggedIn", "log");
                                             request.removeAttribute("loginError");
 //                                            dispatcher.forward(request, response);
-                                            response.sendRedirect("home.jsp");
+                                            response.sendRedirect("ResultsMain2.jsp");
                                             
                                               System.out.println("Acces Level is "+ conn.rs.getString("AccessLevel")); 
                                              if (session.getAttribute("Username") != null) {

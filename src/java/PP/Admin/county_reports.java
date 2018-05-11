@@ -1607,15 +1607,42 @@ if (conn.rs1.next()==true)
      overall_districts_yr+=conn.rs1.getInt(1);
      
 }   
-     
-   String achieved_selector_this_period="SELECT SUM(totalAchieved) FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && reportingPeriod='"+quarter+"' && financialYear='"+year+"' && titleID='"+indicator_id+"' ";  
- conn.rs1=conn.state1.executeQuery(achieved_selector_this_period);
+     String achieved_selector_this_period=""; 
+     String achieved_selector_this_periodtotal=""; 
+  
+   if(year>=2018 && percentages==1)
+   {
+   
+   achieved_selector_this_period="SELECT ROUND((SUM(case  when  reportingPeriod!='' then numerator end)/SUM(case  when  reportingPeriod!='' then denominator end))*100) as myavg  FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && reportingPeriod='"+quarter+"' && financialYear='"+year+"' && titleID='"+indicator_id+"' ";  
+   achieved_selector_this_periodtotal="SELECT ROUND((SUM(case  when  reportingPeriod!='' then numerator end)/SUM(case  when  reportingPeriod!='' then denominator end))*100) as myavg  FROM indicatorachievedcombined WHERE  reportingPeriod='"+quarter+"' && financialYear='"+year+"' && titleID='"+indicator_id+"' ";  
+
+   }
+   else {
+     achieved_selector_this_period="SELECT SUM(totalAchieved) FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && reportingPeriod='"+quarter+"' && financialYear='"+year+"' && titleID='"+indicator_id+"' ";  
+  
+   }
+   
+   conn.rs1=conn.state1.executeQuery(achieved_selector_this_period);
 while (conn.rs1.next())
      {
 //    ACHIEVED PER COUNTY TOTALS.............................     
      achieved_this_period=conn.rs1.getInt(1);
      achieved_this_period_total+=conn.rs1.getInt(1);
+     
+     
      }
+if(year>=2018 && percentages==1)
+   {
+ conn.rs1=conn.state1.executeQuery(achieved_selector_this_periodtotal);
+while (conn.rs1.next())
+     {
+//    ACHIEVED TOTALS.............................     
+ 
+     achieved_this_period_total=conn.rs1.getInt(1);
+     
+     
+     }
+   }
  String achieved_target_this_period="SELECT SUM(target_combined) FROM quartely_targets WHERE county_id='"+county_id+"' && quarter='"+quarter+"' && year='"+year+"' && indicator_id='"+indicator_id+"'";  
  conn.rs1=conn.state1.executeQuery(achieved_target_this_period);
 if (conn.rs1.next()==true)
@@ -1769,9 +1796,9 @@ if (conn.rs1.next()==true){
         // get data for the previous quarter;
          if(quarter.equals("Q2")){
              
-             String cust_q="Q"+previous_quarter;
+        String cust_q="Q"+previous_quarter;
              
-             String count_dist_prev="SELECT count(resultID) FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='"+year+"' &&  reportingPeriod = 'Q1' && titleID='"+indicator_id+"'";  
+        String count_dist_prev="SELECT count(resultID) FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='"+year+"' &&  reportingPeriod = 'Q1' && titleID='"+indicator_id+"'";  
  conn.rs2=conn.state2.executeQuery(count_dist_prev);
  
 // System.out.println("^^^^^^"+count_dist_prev);
@@ -1898,10 +1925,7 @@ if (conn.rs2.next()==true){
     district_counter_prior=conn.rs2.getInt(1);
     overall_district_counter_prior+=conn.rs2.getInt(1); 
     district_counter_priors=conn.rs2.getInt(1);
-    overall_district_counter_priors+=conn.rs2.getInt(1); 
-   
-    //System.out.println("*****"+district_counter_prior +"___"+overall_district_counter_prior);
-    //System.out.println("*****1"+district_counter_priors +"___"+overall_district_counter_priors);
+    overall_district_counter_priors+=conn.rs2.getInt(1);
     
      }   
 System.out.println("***"+indicator_id);
@@ -2010,9 +2034,7 @@ else if((indicator_id.equals("47")|| indicator_id.equals("49") ||indicator_id.eq
 // for prior achieved i.e Q5 FOR Q3 AND Q6 FOR Q4 q7 for q1 and Q10 for Q4 2015
 else if((indicator_id.equals("47") || indicator_id.equals("49")||indicator_id.equals("46")||indicator_id.equals("55")||indicator_id.equals("53") ) && quarter.equals("Q4")&& year==2015){
 
-		
-		
-		
+	
 		//========================2015===================
 		
 		
@@ -2156,7 +2178,7 @@ else{
      //This will happen for percentage indicators
      
      if(percentages==1){
-         String get_total_prior="SELECT AVG(indicatorachievedcombined.totalAchieved) FROM indicatorachievedcombined WHERE (County Like '"+county_name+"'|| County Like '"+county_id+"') &&  ( CONCAT(financialYear,trim( LEADING 'Q' FROM reportingPeriod)) < '"+year+""+splted_quarter+"' ) && reportingPeriod!='' && financialYear!='' && titleID='"+indicator_id+"'";  
+         String get_total_prior="SELECT ROUND(AVG(indicatorachievedcombined.totalAchieved)) FROM indicatorachievedcombined WHERE (County Like '"+county_name+"'|| County Like '"+county_id+"') &&  ( CONCAT(financialYear,trim( LEADING 'Q' FROM reportingPeriod)) < '"+year+""+splted_quarter+"' ) && reportingPeriod!='' && financialYear!='' && titleID='"+indicator_id+"'";  
       
          System.out.println("prior percentage query "+get_total_prior);
          conn.rs2=conn.state2.executeQuery(get_total_prior);
@@ -2172,7 +2194,7 @@ else{
        
        
        
-        String get_total_prior_alltime="SELECT AVG(indicatorachievedcombined.totalAchieved) FROM indicatorachievedcombined WHERE   ( CONCAT(financialYear,trim( LEADING 'Q' FROM reportingPeriod)) < '"+year+""+splted_quarter+"' ) && reportingPeriod!='' && financialYear!='' && county !='' && titleID='"+indicator_id+"'";  
+        String get_total_prior_alltime="SELECT ROUND(AVG(indicatorachievedcombined.totalAchieved)) FROM indicatorachievedcombined WHERE   ( CONCAT(financialYear,trim( LEADING 'Q' FROM reportingPeriod)) < '"+year+""+splted_quarter+"' ) && reportingPeriod!='' && financialYear!='' && county !='' && titleID='"+indicator_id+"'";  
       
          System.out.println("prior percentage query total"+get_total_prior_alltime);
          conn.rs2=conn.state2.executeQuery(get_total_prior_alltime);
@@ -2187,9 +2209,16 @@ else{
        
        //--------------------------------------this year--------
          if(!indicator_id.equals("47") && !indicator_id.equals("49") && !indicator_id.equals("46")&& !indicator_id.equals("55")&& !indicator_id.equals("53") && !indicator_id.equals("54") ){
+     String achieved_selector_this_year="";
+             if(year>=2018){
+   achieved_selector_this_year="SELECT ROUND((SUM(case  when  reportingPeriod!='' then numerator end)/SUM(case  when  reportingPeriod!='' then denominator end))*100) as myavg,totalAchieved FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='"+year+"'  && titleID='"+indicator_id+"' GROUP BY county";  
+   }
+   else {
   
-  String achieved_selector_this_year="SELECT AVG(totalAchieved),totalAchieved FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='"+year+"'  && titleID='"+indicator_id+"' GROUP BY county";  
- conn.rs2=conn.state2.executeQuery(achieved_selector_this_year);
+   achieved_selector_this_year="SELECT ROUND(AVG(totalAchieved)),totalAchieved FROM indicatorachievedcombined WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='"+year+"'  && titleID='"+indicator_id+"' GROUP BY county";  
+ 
+   }
+  conn.rs2=conn.state2.executeQuery(achieved_selector_this_year);
 if (conn.rs2.next()==true)
 {
 //    ACHIEVED PER COUNTY TOTALS.............................     
@@ -2201,8 +2230,18 @@ if (conn.rs2.next()==true)
       System.out.println(county_name+county_id+"___ "+indicator_id+" @@@@"+achieved_this_year);
 }
              
-        String achieved_selector_this_year1="SELECT AVG(totalAchieved) FROM indicatorachievedcombined WHERE  financialYear='"+year+"'  && titleID='"+indicator_id+"' ";  
- conn.rs4=conn.state4.executeQuery(achieved_selector_this_year1);
+      
+String achieved_selector_this_year1=""; 
+if(year>=2018){
+ achieved_selector_this_year1="SELECT ROUND((SUM(case  when  reportingPeriod!='' then numerator end)/SUM(case  when  reportingPeriod!='' then denominator end))*100) as myavg FROM indicatorachievedcombined WHERE  financialYear='"+year+"'  && titleID='"+indicator_id+"' ";  
+}
+else {
+
+ achieved_selector_this_year1="SELECT ROUND(AVG(totalAchieved)) FROM indicatorachievedcombined WHERE  financialYear='"+year+"'  && titleID='"+indicator_id+"' ";  
+
+}
+
+conn.rs4=conn.state4.executeQuery(achieved_selector_this_year1);
 if (conn.rs4.next()==true)
 {
 //    ACHIEVED PER COUNTY TOTALS.............................     
@@ -2329,12 +2368,12 @@ if (conn.rs4.next()==true)
      rw8cell6_3.setCellValue(achieved_this_period);    
      }
 //     rw8cell6.setCellValue(achieved_this_period);
-       String achieved_target_this_year="SELECT SUM(target_combined) FROM yearly_targets WHERE county_id='"+county_id+"' && year='"+year+"' && indicator_id='"+indicator_id+"'";  
+       String achieved_target_this_year="SELECT AVG(target_combined) FROM yearly_targets WHERE year='"+year+"' && indicator_id='"+indicator_id+"'";  
  conn.rs1=conn.state1.executeQuery(achieved_target_this_year);
 if (conn.rs1.next()==true){
 //    TARGETS PER COUNTY TOTALS.............................     
     yearly_targets=conn.rs1.getInt(1);
-    total_yearly_targets+=conn.rs1.getInt(1);
+    total_yearly_targets=conn.rs1.getInt(1);
     
      }
 
@@ -2381,7 +2420,7 @@ if (conn.rs1.next()==true){
      rw8cell5_3.setCellValue((quartely_targets/district_counter_tar)+"%");
 //     System.out.println("total districts  :  "+district_counter_tar);
           }
-           if(district_counter_tar==0){
+       if(district_counter_tar==0){
      rw8cell5.setCellValue("");
      rw8cell5_3.setCellValue("");
 //     System.out.println("total districts  :  "+district_counter_tar);
@@ -2401,9 +2440,9 @@ if (conn.rs1.next()==true){
            }
           
           if(district_counter>0){//
-     rw8cell6.setCellValue((achieved_this_period/district_counter)+"%");
-      rw8cell6_3.setCellValue((achieved_this_period/district_counter)+"%");
-          }
+     rw8cell6.setCellValue((Math.round(achieved_this_period))+"%");
+      rw8cell6_3.setCellValue((Math.round(achieved_this_period))+"%");
+                              }
       rw8cell7.setCellValue(yearly_targets+"%");
       rw8cell7_3.setCellValue(yearly_targets+"%");
          // }
@@ -2415,12 +2454,12 @@ if (conn.rs1.next()==true){
       }
           
           
-           String achieved_target_this_year="SELECT SUM(target_combined) FROM yearly_targets WHERE county_id='"+county_id+"' && year='"+year+"' && indicator_id='"+indicator_id+"'";  
+           String achieved_target_this_year="SELECT AVG(target_combined) FROM yearly_targets WHERE  year='"+year+"' && indicator_id='"+indicator_id+"'";  
  conn.rs1=conn.state1.executeQuery(achieved_target_this_year);
 if (conn.rs1.next()==true){
 //    TARGETS PER COUNTY TOTALS.............................     
     yearly_targets=conn.rs1.getInt(1);
-    total_yearly_targets+=conn.rs1.getInt(1);
+    total_yearly_targets=conn.rs1.getInt(1);
     
      }
      
@@ -2655,8 +2694,8 @@ if (conn.rs1.next()==true){
      rw9cell5_3.setCellValue((total_quartely_targets/overall_district_counter_tar)+"%");
          }
          if(overall_districts>0){
-     rw9cell6.setCellValue((achieved_this_period_total/overall_districts)+"%");
-     rw9cell6_3.setCellValue((achieved_this_period_total/overall_districts)+"%");
+     rw9cell6.setCellValue((Math.round(achieved_this_period_total))+"%");
+     rw9cell6_3.setCellValue((Math.round(achieved_this_period_total))+"%");
          } if(achieved_this_year_total>0){
 //     rw9cell7.setCellValue((total_yearly_targets/overall_districts_yr)+"%");
      rw9cell8.setCellValue((achieved_this_year_total)+"%");
@@ -2668,12 +2707,12 @@ if (conn.rs1.next()==true){
          //OLMIS Indicators have 6 counties so to get avg target devide by 6 not 5
          
          if(indicator_id.equals("51")||indicator_id.equals("52")){
-      rw9cell7.setCellValue((total_yearly_targets/6)+"%");
-      rw9cell7_3.setCellValue((total_yearly_targets/6)+"%");
+      rw9cell7.setCellValue((total_yearly_targets)+"%");
+      rw9cell7_3.setCellValue((total_yearly_targets)+"%");
          }
          else {
-          rw9cell7.setCellValue((total_yearly_targets/5)+"%");
-      rw9cell7_3.setCellValue((total_yearly_targets/5)+"%");
+          rw9cell7.setCellValue((total_yearly_targets)+"%");
+      rw9cell7_3.setCellValue((total_yearly_targets)+"%");
          }
       System.out.println(overall_district_counter_prev);
 //     if(overall_district_counter_prev>0){
@@ -3118,9 +3157,24 @@ if (conn.rs1.next()==true){
      } 
  // if(!indicator_id.equals("54")){
      
-   String achieved_selector_this_period="SELECT SUM(menAchieved),SUM(womenAchieved) FROM indicatorachieved WHERE (County='"+county_name+"'|| County='"+county_id+"') && reportingPeriod='"+quarter+"' && financialYear='"+year+"' && titleID='"+indicator_id+"'";  
- conn.rs1=conn.state1.executeQuery(achieved_selector_this_period);
-if (conn.rs1.next()==true){
+   String achieved_selector_this_period="";  
+   String achieved_selector_this_periodtotal="";  
+   
+   	 if(year>=2018 && percentages==1)
+   {
+       
+   achieved_selector_this_period="SELECT ROUND((sum(case  when  reportingPeriod!='' then ((men_numerator)) end)/sum(case  when  reportingPeriod='Q1' then ((men_denominator)) end))*100 ) as menavg,ROUND((sum(case  when  reportingPeriod!='' then ((women_numerator)) end)/sum(case  when  reportingPeriod!='' then ((women_denominator)) end))*100 ) as womenavg FROM indicatorachieved WHERE (County='"+county_name+"'|| County='"+county_id+"') && reportingPeriod='"+quarter+"' && financialYear='"+year+"' && titleID='"+indicator_id+"'";  
+   achieved_selector_this_periodtotal="SELECT ROUND((sum(case  when  reportingPeriod!='' then ((men_numerator)) end)/sum(case  when  reportingPeriod='Q1' then ((men_denominator)) end))*100 ) as menavg,ROUND((sum(case  when  reportingPeriod!='' then ((women_numerator)) end)/sum(case  when  reportingPeriod!='' then ((women_denominator)) end))*100 ) as womenavg FROM indicatorachieved WHERE reportingPeriod='"+quarter+"' && financialYear='"+year+"' && titleID='"+indicator_id+"'";  
+   
+   }
+         else {
+   
+    achieved_selector_this_period="SELECT SUM(menAchieved),SUM(womenAchieved) FROM indicatorachieved WHERE (County='"+county_name+"'|| County='"+county_id+"') && reportingPeriod='"+quarter+"' && financialYear='"+year+"' && titleID='"+indicator_id+"'";  
+              
+         }
+    conn.rs1=conn.state1.executeQuery(achieved_selector_this_period);
+if (conn.rs1.next()==true)
+{
 //    ACHIEVED PER COUNTY TOTALS.............................     
      achieved_this_period_m=conn.rs1.getInt(1);
      achieved_this_period_total_m+=conn.rs1.getInt(1);
@@ -3128,7 +3182,22 @@ if (conn.rs1.next()==true){
      achieved_this_period_total_f+=conn.rs1.getInt(2);
     
     
-     }
+}
+
+if(year>=2018 && percentages==1){
+
+    conn.rs1=conn.state1.executeQuery(achieved_selector_this_periodtotal);
+if (conn.rs1.next()==true)
+{
+//    ACHIEVED PER COUNTY TOTALS.............................         
+     achieved_this_period_total_m=conn.rs1.getInt(1);   
+     achieved_this_period_total_f=conn.rs1.getInt(2);
+    
+}
+
+}
+
+
   //}
  previous_quarter=Integer.parseInt(splted_quarter)-1;
  	// System.out.println("gggg   "+splted_quarter );
@@ -3272,30 +3341,37 @@ if (conn.rs3.next()==true){
     
              
        System.out.println(achieved_this_year_m +"$$$"+ achieved_this_year_f);      
-             } 
+             
+                       } 
 
 
                            
                          
-             else{
+                       else {
+                           
+                           
+                           
  String achieved_selector_this_year="SELECT SUM(menAchieved),SUM(womenAchieved) FROM indicatorachieved WHERE (County='"+county_name+"'|| County='"+county_id+"') && financialYear='"+year+"' && reportingPeriod='"+qr+"' && titleID='"+indicator_id+"'";  
+ 
+//if the current indicator is 100, do avg
+ 
+ 
  conn.rs1=conn.state1.executeQuery(achieved_selector_this_year);
- //System.out.println("!!!!!"+achieved_selector_this_year);
+
 if (conn.rs1.next()==true){
-//    ACHIEVED PER COUNTY TOTALS.............................     
-    
-     //System.out.println("!!!"+conn.rs1.getInt(1));
+     //    ACHIEVED PER COUNTY TOTALS.............................
      achieved_this_year_m+=conn.rs1.getInt(1);
-     
-     System.out.println(conn.rs1.getInt(1) +"!!!!"+qr +"!!!"+achieved_this_year_m);
      achieved_this_year_total_m+=conn.rs1.getInt(1);
-     
-      achieved_this_year_f+=conn.rs1.getInt(2);
-      
-      
-       System.out.println("else "+conn.rs1.getInt(1) +"!!!!"+qr +"!!!"+achieved_this_year_f);
+     achieved_this_year_f+=conn.rs1.getInt(2);
      achieved_this_year_total_f+=conn.rs1.getInt(2);
-     }}
+                          }
+
+
+
+
+
+                       
+                       }
                          
                          
                          
@@ -3479,7 +3555,7 @@ if(indicator_id.equals("54") && quarter.equals("Q3"))  {
 
 
 
-String get_total_prior="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q9'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2015' &&  titleID='54' group by county ";  
+String get_total_prior="SELECT ROUND(AVG(menAchieved)),ROUND(AVG(womenAchieved)),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q9'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2015' &&  titleID='54' group by county ";  
       
         System.out.println("today"+get_total_prior);
          
@@ -3491,7 +3567,7 @@ String get_total_prior="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultI
         
             achieved_prior_f_count=conn.rs2.getInt(3);
 }
-  String get_total_prior1="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q9' && financialYear='2015' && titleID='54' group by reportingPeriod ";  
+  String get_total_prior1="SELECT ROUND(AVG(menAchieved)),ROUND(AVG(womenAchieved)),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q9' && financialYear='2015' && titleID='54' group by reportingPeriod ";  
       
         // System.out.println("*****"+get_total_prior);
          
@@ -3510,7 +3586,7 @@ String get_total_prior="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultI
 }
 
  if(indicator_id.equals("54") && quarter.equals("Q4") && year==2014) {
-  String get_total_prior="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2014' && titleID='"+indicator_id+"' GROUP BY county";  
+  String get_total_prior="SELECT ROUND(AVG(menAchieved)),ROUND(AVG(womenAchieved)),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2014' && titleID='"+indicator_id+"' GROUP BY county";  
       
         // System.out.println("*****"+get_total_prior);
          
@@ -3522,7 +3598,7 @@ String get_total_prior="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultI
         
             totaldistsprior=conn.rs2.getInt(3);
 }
-  String get_total_prior1="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6' && financialYear='2014' && titleID='"+indicator_id+"'";  
+  String get_total_prior1="SELECT ROUND(AVG(menAchieved)),ROUND(AVG(womenAchieved)),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6' && financialYear='2014' && titleID='"+indicator_id+"'";  
       
         // System.out.println("*****"+get_total_prior);
          
@@ -3540,7 +3616,7 @@ String get_total_prior="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultI
 System.out.println(county_name+""+indicator_id+"totaldistsprior"+totaldistsprior +"____"+achieved_prior_f +"____"+achieved_prior_m +"totals"+ achieved_prior_total_f +"totas"+ achieved_prior_total_m);
 }
  if(indicator_id.equals("54") && quarter.equals("Q1") && year==2015) {
-  String get_total_prior="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q7'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2014' && titleID='"+indicator_id+"' GROUP BY county";  
+  String get_total_prior="SELECT ROUND(AVG(menAchieved)),ROUND(AVG(womenAchieved)),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q7'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2014' && titleID='"+indicator_id+"' GROUP BY county";  
       
         // System.out.println("*****"+get_total_prior);
          
@@ -3572,7 +3648,7 @@ System.out.println(county_name+""+indicator_id+"totaldistsprior"+totaldistsprior
 //--------------------------------------------------elkant----------------------------------------------- 
  
  if(indicator_id.equals("54") && quarter.equals("Q4") && year==2015) {
-  String get_total_prior="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2015' && titleID='"+indicator_id+"' GROUP BY county";  
+  String get_total_prior="SELECT ROUND(AVG(menAchieved)),ROUND(AVG(womenAchieved)),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6'  && (County='"+county_name+"'|| County='"+county_id+"') && financialYear='2015' && titleID='"+indicator_id+"' GROUP BY county";  
       
          conn.rs2=conn.state2.executeQuery(get_total_prior);
        if(conn.rs2.next()==true){
@@ -3582,7 +3658,7 @@ System.out.println(county_name+""+indicator_id+"totaldistsprior"+totaldistsprior
         
             totaldistsprior=conn.rs2.getInt(3);
 }
-  String get_total_prior1="SELECT AVG(menAchieved),AVG(womenAchieved),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6' && financialYear='2015' && titleID='"+indicator_id+"'";  
+  String get_total_prior1="SELECT ROUND(AVG(menAchieved)),ROUND(AVG(womenAchieved)),count(ResultID) FROM indicatorachieved WHERE reportingPeriod='Q6' && financialYear='2015' && titleID='"+indicator_id+"'";  
       
         // System.out.println("*****"+get_total_prior);
          
@@ -3837,12 +3913,19 @@ if (conn.rs1.next()==true){
     yearly_targets1=conn.rs1.getInt(1);
     yearly_targets2=conn.rs1.getInt(2);
     
-    total_yearly_targets1+=yearly_targets1;
+    //total_yearly_targets1+=yearly_targets1;
     
-    total_yearly_targets2+=yearly_targets2;
+    //total_yearly_targets2+=yearly_targets2;
      }
      
-     
+      achieved_target_this_year="SELECT AVG(target_men),AVG(target_women) FROM yearly_targets WHERE  year='"+year+"' && indicator_id='"+indicator_id+"'";  
+ conn.rs1=conn.state1.executeQuery(achieved_target_this_year);
+if (conn.rs1.next()==true){
+
+    total_yearly_targets1=conn.rs1.getInt(1);
+    
+    total_yearly_targets2=conn.rs1.getInt(2);
+     } 
      
      
     if(yearly_targets1==0||yearly_targets2==0) 
@@ -3872,8 +3955,8 @@ if (conn.rs1.next()==true){
      }
      if(achieved_this_year_f>0){
       
-        
-         if(indicator_id.equals("8")||indicator_id.equals("7")||indicator_id.equals("9")||indicator_id.equals("16")||indicator_id.equals("18")||indicator_id.equals("19")
+        //indicator id 8 was removed from this filtering on 2016 Nov 11th
+         if(indicator_id.equals("7")||indicator_id.equals("9")||indicator_id.equals("16")||indicator_id.equals("18")||indicator_id.equals("19")
                  ||indicator_id.equals("20")||indicator_id.equals("22")||indicator_id.equals("26")||indicator_id.equals("57")) {
          
           rw8cell14.setCellValue(achieved_this_period_f);  
@@ -3894,8 +3977,8 @@ if (conn.rs1.next()==true){
        rw8cell15_3.setCellValue("");   
      }
      if(achieved_this_year_m>0){
-         
-         if(indicator_id.equals("8")||indicator_id.equals("7")||indicator_id.equals("9")||indicator_id.equals("16")||indicator_id.equals("18")||indicator_id.equals("19")||
+        //indicator_id.equals("8")|| removed on 20161110 due  
+         if(indicator_id.equals("7")||indicator_id.equals("9")||indicator_id.equals("16")||indicator_id.equals("18")||indicator_id.equals("19")||
                  indicator_id.equals("20")||indicator_id.equals("22")||indicator_id.equals("26")||indicator_id.equals("57")) {
          
          
@@ -3925,11 +4008,22 @@ if (conn.rs1.next()==true){
      rw8cell9_3.setCellValue("");
        }
        if(district_counter>0){
-     rw8cell10.setCellValue((achieved_this_period_f/district_counter)+"%");
-     rw8cell11.setCellValue((achieved_this_period_m/district_counter)+"%");
+           if(year>=2018){
+     rw8cell10.setCellValue((Math.round(achieved_this_period_f/district_counter))+"%");
+     rw8cell11.setCellValue((Math.round(achieved_this_period_m/district_counter))+"%");
        
-     rw8cell10_3.setCellValue((achieved_this_period_f/district_counter)+"%");
-     rw8cell11_3.setCellValue((achieved_this_period_m/district_counter)+"%");
+     rw8cell10_3.setCellValue((Math.round(achieved_this_period_f/district_counter))+"%");
+     rw8cell11_3.setCellValue((Math.round(achieved_this_period_m/district_counter))+"%");
+           }
+           else {
+           
+     rw8cell10.setCellValue((Math.round(achieved_this_period_f))+"%");
+     rw8cell11.setCellValue((Math.round(achieved_this_period_m))+"%");
+       
+     rw8cell10_3.setCellValue((Math.round(achieved_this_period_f))+"%");
+     rw8cell11_3.setCellValue((Math.round(achieved_this_period_m))+"%");
+               
+           }
        
      rw8cell12.setCellValue("");
      rw8cell13.setCellValue("");
@@ -4173,12 +4267,12 @@ HSSFRow rwk=shet1.createRow(aa);
      if(percentages==0){
          
 //         sheet 1
-          rwkcell1.setCellValue("Total");
+     rwkcell1.setCellValue("Total");
      rwkcell2.setCellValue("");
      rwkcell3.setCellValue("");
      
 
-         rwkcell4.setCellValue(achieved_prior_total_f);
+     rwkcell4.setCellValue(achieved_prior_total_f);
      rwkcell5.setCellValue(achieved_prior_total_m);
 
      rwkcell6.setCellValue(previous_quarter_achieved_total_f);
@@ -4199,8 +4293,8 @@ HSSFRow rwk=shet1.createRow(aa);
      rwkcell9.setCellValue(total_quarterly_target_men); 
      rwkcell10.setCellValue(achieved_this_period_total_f);
      rwkcell11.setCellValue(achieved_this_period_total_m);
-     
-        if(indicator_id.equals("8")||indicator_id.equals("7")||indicator_id.equals("9")||indicator_id.equals("16")||indicator_id.equals("18")||indicator_id.equals("19")||
+     //indicator_id.equals("8")|| removed on 201611
+        if(indicator_id.equals("7")||indicator_id.equals("9")||indicator_id.equals("16")||indicator_id.equals("18")||indicator_id.equals("19")||
                  indicator_id.equals("20")||indicator_id.equals("22")||indicator_id.equals("26")||
                 indicator_id.equals("57") ) {
          
@@ -4260,40 +4354,91 @@ HSSFRow rwk=shet1.createRow(aa);
                
                //district_counter_yr1
                    if(district_counter_yr1>0){
-                rwkcell10.setCellValue((achieved_this_period_total_f/overall_districts)+"%");
-     rwkcell11.setCellValue((achieved_this_period_total_m/overall_districts)+"%");
+                       if(year>=2018){
+     rwkcell10.setCellValue((Math.round(achieved_this_period_total_f))+"%");
+     rwkcell11.setCellValue(Math.round((achieved_this_period_total_m))+"%");
+                       }
+                       else {
+     rwkcell10.setCellValue((Math.round(achieved_this_period_total_f/overall_districts))+"%");
+     rwkcell11.setCellValue(Math.round((achieved_this_period_total_m/overall_districts))+"%");
+                       
+                       }
+     
      rwkcell12.setCellValue("");
      rwkcell13.setCellValue("");
-     rwkcell14.setCellValue((achieved_this_year_total_f/district_counter_yr1)+"%");
-     rwkcell15.setCellValue((achieved_this_year_total_m/district_counter_yr1)+"%");
-     
-     //sheet3
-     rwkcell10_3.setCellValue((achieved_this_period_total_f/district_counter_yr1)+"%");
-     rwkcell11_3.setCellValue((achieved_this_period_total_m/district_counter_yr1)+"%");
      rwkcell12_3.setCellValue("");
      rwkcell13_3.setCellValue("");
-     rwkcell14_3.setCellValue((achieved_this_year_total_f/district_counter_yr1)+"%");
-     rwkcell15_3.setCellValue((achieved_this_year_total_m/district_counter_yr1)+"%");
+     if(year>=2018){
+     rwkcell14.setCellValue(Math.round((achieved_this_year_total_f))+"%");
+     rwkcell15.setCellValue(Math.round((achieved_this_year_total_m))+"%");
+     //sheet3
+     rwkcell10_3.setCellValue(Math.round((achieved_this_period_total_f))+"%");
+     rwkcell11_3.setCellValue(Math.round((achieved_this_period_total_m))+"%");
+     
+     
+     rwkcell14_3.setCellValue(Math.round((achieved_this_year_total_f))+"%");
+     rwkcell15_3.setCellValue(Math.round((achieved_this_year_total_m))+"%");
+     
+     } else {
+     
+     rwkcell14.setCellValue(Math.round((achieved_this_year_total_f/district_counter_yr1))+"%");
+     rwkcell15.setCellValue(Math.round((achieved_this_year_total_m/district_counter_yr1))+"%");
+     
+     //sheet3
+     rwkcell10_3.setCellValue(Math.round((achieved_this_period_total_f/district_counter_yr1))+"%");
+     rwkcell11_3.setCellValue(Math.round((achieved_this_period_total_m/district_counter_yr1))+"%");
+     
+     rwkcell14_3.setCellValue(Math.round((achieved_this_year_total_f/district_counter_yr1))+"%");
+     rwkcell15_3.setCellValue(Math.round((achieved_this_year_total_m/district_counter_yr1))+"%");
+     
+     }
+     
+     
+     
         }
                //    }     
                
                
-                   else if(overall_districts>0) {     
-                   rwkcell10.setCellValue((achieved_this_period_total_f/overall_districts)+"%");
-     rwkcell11.setCellValue((achieved_this_period_total_m/overall_districts)+"%");
+                   else if(overall_districts>0) {
+     if(year>=2018){
+     rwkcell10.setCellValue(Math.round((achieved_this_period_total_f))+"%");
+     rwkcell11.setCellValue(Math.round((achieved_this_period_total_m))+"%");
      rwkcell12.setCellValue("");
      rwkcell13.setCellValue("");
-     rwkcell14.setCellValue((achieved_this_year_total_f/overall_districts_yr)+"%");
-     rwkcell15.setCellValue((achieved_this_year_total_m/overall_districts_yr)+"%");
+     rwkcell14.setCellValue(Math.round((achieved_this_year_total_f))+"%");
+     rwkcell15.setCellValue(Math.round((achieved_this_year_total_m))+"%");
      
      //sheet3
-     rwkcell10_3.setCellValue((achieved_this_period_total_f/overall_districts)+"%");
-     rwkcell11_3.setCellValue((achieved_this_period_total_m/overall_districts)+"%");
+     rwkcell10_3.setCellValue(Math.round((achieved_this_period_total_f))+"%");
+     rwkcell11_3.setCellValue(Math.round((achieved_this_period_total_m))+"%");
      rwkcell12_3.setCellValue("");
      rwkcell13_3.setCellValue("");
-     rwkcell14_3.setCellValue((achieved_this_year_total_f/overall_districts_yr)+"%");
-     rwkcell15_3.setCellValue((achieved_this_year_total_m/overall_districts_yr)+"%");
-               } }
+     rwkcell14_3.setCellValue(Math.round((achieved_this_year_total_f))+"%");
+     rwkcell15_3.setCellValue(Math.round((achieved_this_year_total_m))+"%");
+                       }
+                       else {
+                       
+                       
+     rwkcell10.setCellValue(Math.round((achieved_this_period_total_f/overall_districts))+"%");
+     rwkcell11.setCellValue(Math.round((achieved_this_period_total_m/overall_districts))+"%");
+     rwkcell12.setCellValue("");
+     rwkcell13.setCellValue("");
+     rwkcell14.setCellValue(Math.round((achieved_this_year_total_f/overall_districts_yr))+"%");
+     rwkcell15.setCellValue(Math.round((achieved_this_year_total_m/overall_districts_yr))+"%");
+     
+     //sheet3
+     rwkcell10_3.setCellValue(Math.round((achieved_this_period_total_f/overall_districts))+"%");
+     rwkcell11_3.setCellValue(Math.round((achieved_this_period_total_m/overall_districts))+"%");
+     rwkcell12_3.setCellValue("");
+     rwkcell13_3.setCellValue("");
+     rwkcell14_3.setCellValue(Math.round((achieved_this_year_total_f/overall_districts_yr))+"%");
+     rwkcell15_3.setCellValue(Math.round((achieved_this_year_total_m/overall_districts_yr))+"%");
+                       
+                       
+                       }
+                   
+                   
+                   } }
          
            
       if(indicator_id.equals("54")) {
@@ -4328,7 +4473,7 @@ HSSFRow rwk=shet1.createRow(aa);
           
        rwkcell4.setCellValue(achieved_prior_total_f/overall_district_counter_prior+"%");
      rwkcell5.setCellValue(achieved_prior_total_m/overall_district_counter_prior+"%");
-      System.out.println(achieved_prior_total_f / totaldistspriors + "%"+ achieved_prior_total_f +"%%%%%"+totaldistspriors);
+     // System.out.println(achieved_prior_total_f / totaldistspriors + "%"+ achieved_prior_total_f +"%%%%%"+totaldistspriors);
 
      //sheet2
        rwkcell4_3.setCellValue(achieved_prior_total_f/overall_district_counter_prior+"%");
@@ -4415,7 +4560,7 @@ byte [] outArray = outByteStream.toByteArray();
 response.setContentType("application/ms-excel");
 response.setContentLength(outArray.length);
 response.setHeader("Expires:", "0"); // eliminates browser caching
-response.setHeader("Content-Disposition", "attachment; filename=PPMT_"+period+"_"+Display_year+"_"+"County_Report_Created_On_"+current_time+".xls");
+response.setHeader("Content-Disposition", "attachment; filename=PPMT_"+period+"_"+Display_year+"_"+"County_Rpt_Created_On_"+current_time+".xls");
 OutputStream outStream = response.getOutputStream();
 outStream.write(outArray);
 outStream.flush();

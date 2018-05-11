@@ -39,7 +39,7 @@ int positioner,table_id,baseline_men,baseline_women,baseline_totals,target_men,t
    year_f=request.getParameter("year");
    quarter=request.getParameter("quarter");
    String[] q_det=quarter.split("");
-       int type_quarter=Integer.parseInt(q_det[2]);
+       int type_quarter=Integer.parseInt(q_det[1]);
        System.out.println(" the q is  :  "+type_quarter);
 
        String[] curr_year=year_f.split(",");

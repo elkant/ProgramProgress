@@ -27,10 +27,10 @@ public class load_indicators extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String current_row=request.getParameter("current_row");
-            System.out.println("the current _ row is : "+current_row);
+            System.out.println("PP.Admin.load_indicators has been called : "+current_row);
             dbConnect conn= new dbConnect();
             indicator_data="<option value=\"0,0,"+current_row+"\">Choose Indicator</option>";
-            String load_indicators="SELECT * FROM indicatortitles";
+            String load_indicators="SELECT * FROM indicatortitles where active='yes'";
             conn.rs=conn.state.executeQuery(load_indicators);
             while(conn.rs.next()){
                 

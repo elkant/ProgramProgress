@@ -30,7 +30,7 @@ public class insertquarterlytargets extends HttpServlet {
         try {
             /* TODO output your page here. You may use following sample code. */
             dbConnect conn= new dbConnect();
-            String currentyear="2016";
+            String currentyear="2018";
             String skipquarter="Q1";
             
             if(request.getParameter("year")!=null){

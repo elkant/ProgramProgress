@@ -458,7 +458,7 @@ xmlhttp.send();
 <div class="example" style="margin-top: 0; margin-bottom: 0; width:1500px;">
 
     
-<!--    <div><h1 style="text-align: center"><img src="images/aphia_logo.png" height="70" width="200"/></h1></div> -->
+<!--    <div><h1 style="text-align: center"><img src="images/aphia_logo.PNG" height="70" width="50%"/></h1></div> -->
 <!--    <div class="menuholder">
         <ul class="menu slide">
             <li><a href="" class="red">Home</a></li>

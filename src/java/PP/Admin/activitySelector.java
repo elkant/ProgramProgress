@@ -49,16 +49,23 @@ public class activitySelector extends HttpServlet {
            session = request.getSession();
            session.setAttribute("titleID",titleID);
            
+          String checkactivitytype="select ActivityID from indicatoractivity where IndicatorID='"+titleID+"' ";
           
+          
+           
            dbConnect conn=new dbConnect();
-           String activity ="select * from indicatoractivity where IndicatorID='"+titleID+"' OR IndicatorID='all' group by Activity order by Activity Asc";
+           
+           conn.rs1=conn.state1.executeQuery(checkactivitytype);
+           if(conn.rs1.next()){
+           
+            String activity ="select * from indicatoractivity where IndicatorID='"+titleID+"' OR IndicatorID='all' group by Activity order by Activity Asc";
          
            conn.rs=conn.state.executeQuery(activity);
            System.out.println(activity);
            //add all the districts to the 
           
           
-           current_Activity="";
+           current_Activity="<option value=''>Type activity to filter</option>";
            
            while(conn.rs.next()){
                
@@ -68,7 +75,7 @@ public class activitySelector extends HttpServlet {
           
           //dynamically add districts to the string array
           
-          current_Activity=current_Activity+"<option value=\"\"></option><option value=\""+conn.rs.getString("ActivityID")+"\" >"+conn.rs.getString("Activity")+"</option>";
+          current_Activity=current_Activity+"<option value=\""+conn.rs.getString("ActivityID")+"\" >"+conn.rs.getString("Activity")+"</option>";
 //        session.setAttribute("dist_names",dist);
          //12767711
         //3840
@@ -76,7 +83,47 @@ public class activitySelector extends HttpServlet {
        // System.out.println(" <<>"+conn.rs.getString("district_name"));
          
            }
+                 
                
+           
+           }
+           else {
+           
+              
+           String activity ="select * from indicatoractivity where active='1' group by Activity order by Activity Asc";
+         
+           conn.rs=conn.state.executeQuery(activity);
+           System.out.println(activity);
+           //add all the districts to the 
+          
+          
+           current_Activity="<option value=''>Type to filter activity</option>";
+           
+           while(conn.rs.next()){
+               
+         //dist arraylist stays in the session
+          activities.add(conn.rs.getString("Activity")); 
+          
+          
+          //dynamically add districts to the string array
+          
+          current_Activity=current_Activity+"<option value=\""+conn.rs.getString("ActivityID")+"\" >"+conn.rs.getString("Activity")+"</option>";
+//        session.setAttribute("dist_names",dist);
+         //12767711
+        //3840
+       //      1994
+       // System.out.println(" <<>"+conn.rs.getString("district_name"));
+         
+           }
+                 
+                
+               
+               
+               
+           
+           }
+           
+            
            
            System.out.println("Current Activity:" +current_Activity);
       
@@ -85,13 +132,10 @@ public class activitySelector extends HttpServlet {
            
           // PrintWriter out = response.getWriter();
             
-            out.println("<html>");
-            out.println("<head>");           
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h4><select name=\"activity_0\" id=\"activity_0\" >" +current_Activity+"</select></h4>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            //out.println("<select name=\"activity_0\" id=\"activity_0\" >" +current_Activity+"</select></h4>");
+            out.println(current_Activity);
+            
              
              System.out.println("<h4><select name=\"activity_0\" id=\"activity_0\" >" +current_Activity+"</select></h4>");
            

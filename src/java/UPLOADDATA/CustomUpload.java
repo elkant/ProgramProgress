@@ -401,13 +401,17 @@ public void insertintoachievedcombined(  dbConnect conn, String year,String quar
     
             if (value >-1) {
                 String query = "";
-                String checkexistingval = "Select * from indicatorachievedcombined where  district='" + district + "' and financialYear='" + year + "' and titleID='"+indicator+"' and reportingPeriod='" + quarter + "'";
+                String checkexistingval = "Select * from indicatorachievedcombined where  district like '" + district + "' and financialYear='" + year + "' and titleID='"+indicator+"' and reportingPeriod='" + quarter + "'";
+                //String checkexistingval = "Select * from indicatorachievedcombined where   financialYear='" + year + "' and titleID='"+indicator+"' and reportingPeriod='" + quarter + "'";
                 conn.rs3 = conn.state3.executeQuery(checkexistingval);
 
                 if (conn.rs3.next()) {
+                    //delete what exists for that period
+                    //conn.state4.executeUpdate(" delete from indicatorachievedcombined where   financialYear='" + year + "' and titleID='"+indicator+"' and reportingPeriod='" + quarter + "'");
                     query = "update indicatorachievedcombined set totalAchieved='" + value + "' where resultID='" + conn.rs3.getString(1) + "'";
 
-                } else {
+                } 
+                else {
                     query = "insert into indicatorachievedcombined(resultID,county,district,totalAchieved,reportingPeriod,financialYear,titleID)"
                             + "VALUES('"+uniqueid().trim()+"','" + county + "','" + district + "','" + value + "','" + quarter + "','" + year + "','"+indicator+"')";
 //                              conn.state.executeUpdate(query);
@@ -439,12 +443,16 @@ public void insertintoachieved( dbConnect conn, String year,String quarter, Stri
 //check whether there is an existing record then do an update                              
                 String query = "";
                 String checkexistingval = "Select * from indicatorachieved where  district='" + district + "' and financialYear='" + year + "' and titleID='"+indicator+"' and reportingPeriod='" + quarter + "'";
+                //String checkexistingval = "Select * from indicatorachieved where   financialYear='" + year + "' and titleID='"+indicator+"' and reportingPeriod='" + quarter + "'";
                 conn.rs3 = conn.state3.executeQuery(checkexistingval);
 
                 if (conn.rs3.next()) {
+                    
                     query = "update indicatorachieved set menAchieved='" + malevalue + "',womenAchieved='" + femalevalue + "' where resultID='" + conn.rs3.getString(1) + "'";
-
-                } else {
+            // conn.state4.executeUpdate(" delete from indicatorachieved where   financialYear='" + year + "' and titleID='"+indicator+"' and reportingPeriod='" + quarter + "'");
+                   
+                } 
+                else {
                     query = "insert into indicatorachieved(resultID,county,district,menAchieved,womenAchieved,reportingPeriod,financialYear,titleID)"
                             + "VALUES('"+uniqueid().trim()+"','" + county + "','" + district + "','" + malevalue + "','" + femalevalue + "','" + quarter + "','" + year + "','"+indicator+"')";
                 }

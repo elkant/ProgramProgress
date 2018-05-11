@@ -126,7 +126,7 @@ xmlhttp.send();
 <%
 dbConnect conn = new dbConnect();
 String indicator_details="<option value=\"\">Choose Indicator</option>";
-String all_indicator_selector="SELECT * FROM indicatortitles";
+String all_indicator_selector="SELECT * FROM indicatortitles where active='yes'";
 conn.rs=conn.state.executeQuery(all_indicator_selector);
 while(conn.rs.next()){
   indicator_details+="<option value=\""+conn.rs.getString(1)+"\">"+conn.rs.getString(3)+"</option>";  

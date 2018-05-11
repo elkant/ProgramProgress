@@ -131,8 +131,8 @@ System.out.println("using admin");
                     System.out.println("at position  :  " + myalphabet[i]);
                     String current_drive = myalphabet[i];
                     File f = new File(current_drive + ":\\wamp\\mysql\\bin\\");
-                    File f1 = new File(current_drive + ":\\wamp\\bin\\mysql\\mysql5.6.12\\bin");
-                    File f2 = new File(current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.5\\bin");
+                    File f1 = new File(current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.6\\bin");
+                    File f2 = new File(current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.7\\bin");
                     File f3 = new File(current_drive + ":\\PPT_UPLOADS");
 
                     //     CREATE A DIRECTORY AND THE FILE TO HOLD DATA
@@ -176,7 +176,7 @@ System.out.println("using admin");
 // CHECK WHICH PROGRAM IS INSTALLED TO ENSURE THAT DATA IS BACKED UP SUCCESSFULLY.             
 
                     if (f.exists() && f.isDirectory()) {
-                        executeCmd = current_drive + ":\\wamp\\mysql\\bin\\mysqldump --host=localhost --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
+                        executeCmd = current_drive + ":\\wamp\\mysql\\bin\\mysqldump --host="+localhostsplit[0]+" --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
 //executeCmd = "C:\\wamp3\\bin\\mysql\\mysql5.6.12\\bin\\mysqldump --no-create-info --skip-add-drop-table --host=localhost --user="+dbuser+" --password="+dbpassword+" "+dbname+" audit enrollment childage clientmember clientoccupation clientoparea dummy medical_form riskassessmentdetails riskassessmentmain riskreductionmain riskreductiondetails user taskauditor --where=timestamp>='"+startdate+"' -r "+dbpath+"";
 
                         found_folder = "it is old wamp";
@@ -184,11 +184,11 @@ System.out.println("using admin");
                     if (f1.exists() && f1.isDirectory()) {
 
 
-                        executeCmd = current_drive + ":\\wamp\\bin\\mysql\\mysql5.6.12\\bin\\mysqldump --host=localhost --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
+                        executeCmd = current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\mysqldump --host="+localhostsplit[0]+" --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
                         found_folder = "it is new wamp";
                     }
                     if (f2.exists() && f2.isDirectory()) {
-                        executeCmd = current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysqldump --host=localhost --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
+                        executeCmd = current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysqldump --host="+localhostsplit[0]+" --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
                         found_folder = "it is workbench";
                     }
                 } catch (SQLException ex) {
@@ -251,12 +251,15 @@ String daytime=""+year+"-"+month+"-"+day;
 
 
                             session.setAttribute("datasend", "<font color=\"green\">Backup has been created and send via mail</font>");
-                        } else {
+                        }
+                        
+                    else {
 
                             session.setAttribute("datasend", "<font color=\"red\">Backup has been created but NOT send via mail due to problems in internet connection. Try to send Backup Again.</font>");
                         }
 
-                    } else {
+                    } 
+                    else {
 
                         session.setAttribute("datasend", "<font color=\"red\">Backup has been created but NOT send via mail due to problems in internet connection</font>");
                     }

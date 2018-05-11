@@ -113,13 +113,7 @@ document.getElementById("quarter").disabled=false;
 <tr>
     <th>Pepfar Year</th><th><select style="height:38px;" required="true" name="FinancialYear" id="financial" onchange="return add_years();">
                                        <option value="">Select Financial Year</option>
-                                       <option value="2010">2010</option>
-                                       <option value="2011">2011</option>
-                                       <option value="2012">2012</option>
-                                       <option value="2013">2013</option>
-                                       <option value="2014">2014</option>
-                                       <option value="2015">2015</option>
-                                       <option value="2016">2016</option>
+                                       
                                        <option value="2017">2017</option>
                                        <option value="2018">2018</option>
                                        <option value="2019">2019</option>
@@ -138,7 +132,7 @@ document.getElementById("quarter").disabled=false;
                       <tr ><th>County <font style="color: blue">*</font> </th>
                     <th>     <select  name="countyid" id="countyid" multiple="true" style="height:120px;width:156px;" required="true">
   <%
-            String QueryDists= "SELECT countyID,countyName FROM county order by countyName";
+            String QueryDists= "SELECT countyID,countyName FROM countyview order by countyName";
                                 if(conn.state.isClosed()){conn= new dbConnect();}
                                                   
 				conn.rs = conn.state.executeQuery(QueryDists);

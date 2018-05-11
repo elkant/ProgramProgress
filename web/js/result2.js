@@ -64,7 +64,7 @@ if (tbID=="")
 
 
 
-document.getElementById("titleNo").innerHTML="<td><input value=\"\"></td>";
+//document.getElementById("titleNo").innerHTML="<td><input value=\"\"></td>";
 return;
 }
 if (window.XMLHttpRequest)
@@ -79,7 +79,7 @@ xmlhttp1.onreadystatechange=function()
 {
 if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
 {
-document.getElementById("titleNo").innerHTML=xmlhttp1.responseText;
+//document.getElementById("titleNo").innerHTML=xmlhttp1.responseText;
 }
 }
 

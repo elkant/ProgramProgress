@@ -118,7 +118,7 @@
                         %>
                     </h4>
                 </form>
-                <!--                    <h3 align="center"> <img src="images/aphia_logo.png" alt="logo" height="86px" width="270px"/></h3>-->
+                <!--                    <h3 align="center"> <img src="images/aphia_logo.PNG" alt="logo" height="86px" width="270px"/></h3>-->
 
 
             </div>
@@ -135,7 +135,7 @@
 
 
                 %>
-                <p align="center"> &copy <a href="#" title="">PPT</a> Aphia Plus | USAID <%=year%></p>
+                <p align="center"> &copy <a href="#" title="">PPT</a> HSDSA | USAID <%=year%></p>
             </div>
         </div>
     </body>

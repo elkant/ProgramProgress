@@ -80,11 +80,8 @@ public class ovc_customupload_prior extends HttpServlet {
         String allpath = getServletContext().getRealPath("/dbase.txt");
         String mydrive = allpath.substring(0, 1);
 
-
 //        String pth = mydrive + ":/PPT_UPLOADS/" + itemName;
 String pth = "C:/PPT_UPLOADS/ovc_customppmt_prior.xlsx";
-
-      
 
         //  new File(dbconnpath).mkdir();
 

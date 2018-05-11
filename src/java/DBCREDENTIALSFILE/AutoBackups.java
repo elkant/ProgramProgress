@@ -89,7 +89,7 @@ String mail="",county="",partner="";
       String current_drive = myalphabet[i];
       File f = new File(current_drive + ":\\wamp\\mysql\\bin\\");
       File f1 = new File(current_drive + ":\\wamp\\bin\\mysql\\mysql5.6.12\\bin");
-      File f2 = new File(current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.5\\bin");
+      File f2 = new File(current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.7\\bin");
       File f3 = new File(current_drive + ":\\PPT_UPLOADS");
       if (f3.exists() && f3.isDirectory()) {
           path =current_drive + ":\\PPT_UPLOADS\\DATA\\MANUAL_BACKUP";
@@ -112,7 +112,7 @@ String mail="",county="",partner="";
       if (f2.exists() && f2.isDirectory()) {
           found_folder = "it is workbench";
 //          executeCmd = current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysqldump --host=localhost --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " -r " + dbpath + "";
-           executeCmd = current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysqldump --host="+localhostsplit[0]+ " --port="+localhostsplit[1]+ " --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " -r " + dbpath + "";
+           executeCmd = current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysqldump --host="+localhostsplit[0]+ " --port="+localhostsplit[1]+ " --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " -r " + dbpath + "";
          
           found_folder = "it is workbench";
            System.out.println(executeCmd);

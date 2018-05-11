@@ -181,7 +181,7 @@ while(conn.rs2.next()){
   
   System.out.println("_"+inserter+"\n");
   numberofqueries++;
-  conn1.state4.executeUpdate(inserter);  
+  //conn1.state4.executeUpdate(inserter);  
    
    
    
@@ -227,7 +227,7 @@ while(conn.rs2.next()){
   
   System.out.println("_"+inserter+"\n");
   numberofqueries++;
-  conn1.state4.executeUpdate(inserter);  
+  //conn1.state4.executeUpdate(inserter);  
    
    
    

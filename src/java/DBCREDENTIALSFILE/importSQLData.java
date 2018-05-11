@@ -103,7 +103,8 @@ String[] executeCmd1=null;
               String current_drive=myalphabet[i];
               File f =  new File(current_drive+":\\wamp\\mysql\\bin\\");
               File f1 = new File(current_drive+":\\wamp\\bin\\mysql\\mysql5.6.12\\bin");
-              File f2 = new File(current_drive+":\\Program Files\\MySQL\\MySQL Server 5.5\\bin");
+              File f2 = new File(current_drive+":\\Program Files\\MySQL\\MySQL Server 5.7\\bin");
+              File f4 = new File(current_drive+":\\wamp64\\bin\\mysql\\mysql5.7.11\\bin");
              
 
         
@@ -127,9 +128,20 @@ System.out.println(executeCmd);
 
 found_folder="it is new wamp";
 }
+
+if (f4.exists() && f4.isDirectory()){
+
+ executeCmd1 = new String[]{current_drive+":\\wamp64\\bin\\mysql\\mysql5.7.11\\bin", "--user=" + dbuser, "--password=" + dbpassword, dbname,"-e", " source "+dbpath};  
+
+
+System.out.println(executeCmd);
+
+found_folder="it is new wamp";
+}
+
  if (f2.exists() && f2.isDirectory()){
 
- executeCmd1 = new String[]{current_drive+":\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysql", "--user=" + dbuser, "--password=" + dbpassword, dbname,"-e", " source "+dbpath};  
+ executeCmd1 = new String[]{current_drive+":\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysql", "--user=" + dbuser, "--password=" + dbpassword, dbname,"-e", " source "+dbpath};  
 
 
 found_folder="it is workbench";
