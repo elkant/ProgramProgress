@@ -17,6 +17,8 @@ package PP.Admin;
 
 
 
+import static Scripts.OSValidator.isUnix;
+import static Scripts.OSValidator.isWindows;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -143,8 +145,20 @@ public  Connection connect = null;
         try {
 
 
+            
+             String dbconnpath =null;
+            
+            if (isWindows()) {
+			dbconnpath = drive + ":/PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/./dbconnection1.txt";
 
-            String dbconnpath = drive + ":/PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/./dbconnection1.txt";
+		}
+            else if (isUnix()) {
+	dbconnpath ="PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/dbconnection1.txt";
+
+		}
+            
+
+            
 
             //File file = new File("");
             // InputStream inStream = getClass().getResourceAsStream("Web-INF/classes/dbconnection.txt");  

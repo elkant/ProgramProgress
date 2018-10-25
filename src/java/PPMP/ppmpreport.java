@@ -742,7 +742,10 @@ else {
                   
                    
                       if(annualtarget>1){
-                    achievednonpercent=""+(int)conn.rs1.getInt(1)*100/(int)annualtarget+"%";
+                    achievednonpercent=""+(int)(((double)conn.rs1.getDouble(1)*100)/(double)annualtarget)+"%";
+                    
+                          //System.out.println("For id "+conn.rs.getString("titleID")+" "+achievednonpercent);
+                    
                       }
                     }
                     
@@ -903,7 +906,7 @@ else {
                   if(yearval==selectedyear){
                    
                       if(annualtarget!=1&&annualtarget!=0){
-                    achievednonpercent=""+(int)currentyearvalue*100/(int)annualtarget+"%";
+                    achievednonpercent=""+(((int)currentyearvalue*100)/(int)annualtarget)+"%";
                       }
                     }
           

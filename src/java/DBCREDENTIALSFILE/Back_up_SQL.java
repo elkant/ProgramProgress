@@ -7,6 +7,11 @@ package DBCREDENTIALSFILE;
 import DBCREDENTIALSFILE.Send_Data;
 import PP.Admin.dbConnect;
 import PP.Admin.dbConnect1;
+import Scripts.OSValidator;
+import static Scripts.OSValidator.isMac;
+import static Scripts.OSValidator.isSolaris;
+import static Scripts.OSValidator.isUnix;
+import static Scripts.OSValidator.isWindows;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +52,12 @@ public class Back_up_SQL extends HttpServlet {
         session = request.getSession();
         dbConnect conn = new dbConnect();
 
+        //OSValidator ov= new OSValidator();
+        
+        
+       localhost="localhost:3306";
+        
+        
         String lasttimestampid = "1";
         String lasttimestamp = "2014-03-12 11:25:20";
 Date dat= new Date();
@@ -57,7 +68,13 @@ System.out.println("using admin");
         dbpassword = "";
         String nextpage = "";
         found_folder = "";
-        
+                if (isWindows()) {
+                        dbpassword = "";
+                } 
+                else if (isMac()) {}
+                else if (isUnix()) {
+		dbpassword = "P@ss4M&E!Fhiimpact!";
+		}  
        
 //MAKE A DIRECTORY TO STORE THE BACK_UP FILE.
 //        GET CURRENT DATE:
@@ -95,9 +112,7 @@ System.out.println("using admin");
 
             if (conn.dbsetup[3] != null) {
                 dbpassword = conn.dbsetup[3];
-
-
-            }
+}
 
 
 
@@ -133,16 +148,32 @@ System.out.println("using admin");
                     File f = new File(current_drive + ":\\wamp\\mysql\\bin\\");
                     File f1 = new File(current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.6\\bin");
                     File f2 = new File(current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.7\\bin");
-                    File f3 = new File(current_drive + ":\\PPT_UPLOADS");
+                    File f4 = new File("etc/init.d");
+                    File f3 =null;
+                    
+                     if (isWindows()) {
+                        f3 = new File(current_drive + ":\\PPT_UPLOADS");
+                        path = current_drive + ":\\PPT_UPLOADS\\BACKUP";
+                        importpath = current_drive + ":\\PPT_UPLOADS\\IMPORTS";
+                        dbpath = path + "\\" + full_date + "_PPT.sql";
+                } 
+                else if (isMac()) {}
+                else if (isUnix()) {
+		f3 = new File("PPT_UPLOADS");
+                path = "PPT_UPLOADS/BACKUP";
+                        importpath = "PPT_UPLOADS/IMPORTS";
+                        dbpath = path + "/" + full_date + "_PPT.sql";
+		} 
+                    
+                 
 
                     //     CREATE A DIRECTORY AND THE FILE TO HOLD DATA
                     if (f3.exists() && f3.isDirectory()) {
                         //path="C:\\PPT_UPLOADS\\BACKUP\\";
-                        path = current_drive + ":\\PPT_UPLOADS\\BACKUP";
-                        importpath = current_drive + ":\\PPT_UPLOADS\\IMPORTS";
+                        
                         new File(path).mkdirs();
                         new File(importpath).mkdirs();
-                        dbpath = path + "\\" + full_date + "_PPT.sql";
+                        
                     }
 
                     //select the last timestamp which a backup was picked from.....
@@ -187,6 +218,14 @@ System.out.println("using admin");
                         executeCmd = current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\mysqldump --host="+localhostsplit[0]+" --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
                         found_folder = "it is new wamp";
                     }
+                    
+                    if (f4.exists() && f4.isDirectory()) {
+                             //linux
+
+                        executeCmd = " mysqldump --host="+localhostsplit[0]+" --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
+                        found_folder = "Ubuntu linux";
+                    }
+                    
                     if (f2.exists() && f2.isDirectory()) {
                         executeCmd = current_drive + ":\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysqldump --host="+localhostsplit[0]+" --port="+localhostsplit[1]+" --user=" + dbuser + " --password=" + dbpassword + " " + dbname + " indicatorachieved indicatorachievedcombined indicatoractivities indicatoractivities1 indicatoractivity --where=timestamp>='" + lasttimestamp + "' -r " + dbpath + "";
                         found_folder = "it is workbench";

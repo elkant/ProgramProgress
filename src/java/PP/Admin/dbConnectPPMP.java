@@ -4,6 +4,8 @@
  */
 package PP.Admin;
 
+import static Scripts.OSValidator.isUnix;
+import static Scripts.OSValidator.isWindows;
 import com.mysql.jdbc.ResultSetMetaData;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -134,10 +136,18 @@ public  Connection connect = null;
 
         try {
 
+  String dbconnpath =null;
+            
+            if (isWindows()) {
+			dbconnpath = drive + ":/PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/./dbconnection.txt";
 
+		}
+            else if (isUnix()) {
+	dbconnpath = "PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/dbconnection.txt";
 
-            String dbconnpath = drive + ":/PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/./dbconnection.txt";
+		}
 
+           
             //File file = new File("");
             // InputStream inStream = getClass().getResourceAsStream("Web-INF/classes/dbconnection.txt");  
             FileInputStream fstream = new FileInputStream(dbconnpath);

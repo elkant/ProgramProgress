@@ -4,6 +4,9 @@
  */
 package PP.Admin;
 
+import static Scripts.OSValidator.isMac;
+import static Scripts.OSValidator.isUnix;
+import static Scripts.OSValidator.isWindows;
 import com.mysql.jdbc.ResultSetMetaData;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -80,7 +83,8 @@ public  Connection connect = null;
                     }
 
 
-                } else {
+                                        } 
+                else {
                     //call the page thats sets up the database
                     //use if to avoid calling the db.jsp twice.
                     if (issetdbcalled_wrongpword %2== 0) {
@@ -89,9 +93,9 @@ public  Connection connect = null;
                     }
                     else{
                      issetdbcalled_wrongpword ++;
-                    }
+                        }
 
-                }
+                    }
 
 
                 //initialize this three values
@@ -99,7 +103,7 @@ public  Connection connect = null;
                 issetdbcalled_file_exists = 2;
                 issetdbcalled_wrongpword = 2;
 
-                 state=(Statement)connect.createStatement();
+            state=(Statement)connect.createStatement();
             state1=(Statement)connect.createStatement();
             state2=(Statement)connect.createStatement();
             state3=(Statement)connect.createStatement();
@@ -133,10 +137,19 @@ public  Connection connect = null;
 
         try {
 
+            String dbconnpath =null;
+            
+            if (isWindows()) {
+			dbconnpath = drive + ":/PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/./dbconnection.txt";
+
+		}
+            else if (isUnix()) {
+	dbconnpath = "PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/dbconnection.txt";
+
+		}
 
 
-            String dbconnpath = drive + ":/PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/./dbconnection.txt";
-
+             
             //File file = new File("");
             // InputStream inStream = getClass().getResourceAsStream("Web-INF/classes/dbconnection.txt");  
             FileInputStream fstream = new FileInputStream(dbconnpath);

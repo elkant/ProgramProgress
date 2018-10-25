@@ -74,7 +74,7 @@ public String filenames,cu,dates,computername,senderofmail,location;
      
      
 System.out.println(textBody);
-         toAddress+="EKaunda@fhi360.org,mobuya@aphiarift.org";
+         toAddress+="EKaunda@fhi360.org,GNyabuto@fhi360.org";
         String host = "smtp.gmail.com";
         String Password ="plusaphia";
         String from = "aphiabackup@gmail.com";

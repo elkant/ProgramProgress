@@ -4,6 +4,9 @@
  */
 package DBCREDENTIALSFILE;
 
+import static Scripts.OSValidator.isMac;
+import static Scripts.OSValidator.isUnix;
+import static Scripts.OSValidator.isWindows;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -65,7 +68,17 @@ public class updatedbpword extends HttpServlet {
         String mydrive = allpath.substring(0, 1);
         //dbconnpath=mydrive+":\\MNHC_SYSTEM_APHIA_PLUS\\"; 
       dbconnpath=mydrive+":\\PPT_UPLOADS\\DBCONNECTION\\DO_NOT_DELETE\\_\\_\\."; 
-    
+        if (isWindows()) {
+            dbconnpath = mydrive + ":\\PPT_UPLOADS\\DBCONNECTION\\DO_NOT_DELETE\\_\\_\\.";
+            dbsetup = dbconnpath + "\\dbconnection.txt";
+            dbsetup1 = dbconnpath + "\\dbconnection1.txt";
+            dbsetuptemp = dbconnpath + "\\dbconnectiontemp.txt";
+        } else if (isUnix()) {
+            dbconnpath = "PPT_UPLOADS/DBCONNECTION/DO_NOT_DELETE/_/_/.";
+            dbsetup = dbconnpath + "/dbconnection.txt";
+            dbsetup1 = dbconnpath + "/dbconnection1.txt";
+            dbsetuptemp = dbconnpath + "/dbconnectiontemp.txt";
+        }
        
       //create a directory
          //new File(path).mkdir();
@@ -76,9 +89,9 @@ public class updatedbpword extends HttpServlet {
         dbase2="programprogresstemp";
         
 
-dbsetup =dbconnpath+"\\dbconnection.txt";
-dbsetup1 =dbconnpath+"\\dbconnection1.txt";
-dbsetuptemp =dbconnpath+"\\dbconnectiontemp.txt";
+//dbsetup =dbconnpath+"\\dbconnection.txt";
+//dbsetup1 =dbconnpath+"\\dbconnection1.txt";
+//dbsetuptemp =dbconnpath+"\\dbconnectiontemp.txt";
         
          //dbsetup=ctx.getRealPath("/dbase.txt");
         
