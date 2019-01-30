@@ -382,7 +382,23 @@ session=request.getSession();
             tablerows += "<input type=\"hidden\" name=\"test_count\" id=\"test_count\"  value=\"" + test_count + "\" />";
 
 
-
+ if(conn.rs!=null){conn.rs.close();}
+              if(conn.rs1!=null){conn.rs1.close();}
+              if(conn.rs2!=null){conn.rs2.close();}
+              if(conn.rs3!=null){conn.rs3.close();}
+              if(conn.rs4!=null){conn.rs4.close();}
+              if(conn.rs5!=null){conn.rs5.close();}
+              if(conn.rs6!=null){conn.rs6.close();}
+              
+         if(conn.state!=null){conn.state.close();}
+         if(conn.state1!=null){conn.state1.close();}
+         if(conn.state2!=null){conn.state2.close();}
+         if(conn.state3!=null){conn.state3.close();}
+         if(conn.state4!=null){conn.state4.close();}
+         if(conn.state5!=null){conn.state5.close();}
+         if(conn.state6!=null){conn.state6.close();}
+         if(conn.pst!=null){conn.pst.close();}
+         if(conn.connect!=null){conn.connect.close();}
 
         System.out.println("TABLE ROWS 1" + tablerows);
         out.println("<html>");

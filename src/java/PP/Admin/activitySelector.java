@@ -58,7 +58,7 @@ public class activitySelector extends HttpServlet {
            conn.rs1=conn.state1.executeQuery(checkactivitytype);
            if(conn.rs1.next()){
            
-            String activity ="select * from indicatoractivity where IndicatorID='"+titleID+"' OR IndicatorID='all' group by Activity order by Activity Asc";
+            String activity ="select * from indicatoractivity where active=1 and (IndicatorID='"+titleID+"' OR IndicatorID='all' ) group by Activity order by Activity Asc";
          
            conn.rs=conn.state.executeQuery(activity);
            System.out.println(activity);
@@ -141,7 +141,23 @@ public class activitySelector extends HttpServlet {
            
            
            
-        
+         if(conn.rs!=null){conn.rs.close();}
+              if(conn.rs1!=null){conn.rs1.close();}
+              if(conn.rs2!=null){conn.rs2.close();}
+              if(conn.rs3!=null){conn.rs3.close();}
+              if(conn.rs4!=null){conn.rs4.close();}
+              if(conn.rs5!=null){conn.rs5.close();}
+              if(conn.rs6!=null){conn.rs6.close();}
+              
+         if(conn.state!=null){conn.state.close();}
+         if(conn.state1!=null){conn.state1.close();}
+         if(conn.state2!=null){conn.state2.close();}
+         if(conn.state3!=null){conn.state3.close();}
+         if(conn.state4!=null){conn.state4.close();}
+         if(conn.state5!=null){conn.state5.close();}
+         if(conn.state6!=null){conn.state6.close();}
+         if(conn.pst!=null){conn.pst.close();}
+         if(conn.connect!=null){conn.connect.close();}
           // response.sendRedirect("myajax.html");
         } catch (SQLException ex) {
             Logger.getLogger(districtselector.class.getName()).log(Level.SEVERE, null, ex);

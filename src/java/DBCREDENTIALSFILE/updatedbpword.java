@@ -107,15 +107,15 @@ FileWriter outFile = new FileWriter(dbsetup ,false);
 PrintWriter out = new PrintWriter(outFile);
 FileWriter outFile1 = new FileWriter(dbsetup1 ,false);
 PrintWriter out1 = new PrintWriter(outFile1);
-FileWriter outFile2 = new FileWriter(dbsetuptemp ,false);
-PrintWriter out2 = new PrintWriter(outFile2);
+//FileWriter outFile2 = new FileWriter(dbsetuptemp ,false);
+//PrintWriter out2 = new PrintWriter(outFile2);
 //out.print("");
 out.print(host+"\n"+dbase+"\n"+user+"\n"+password.trim());
 out.close();
 out1.print(host+"\n"+dbase1+"\n"+user+"\n"+password.trim());
 out1.close();
-out2.print(host+"\n"+dbase2+"\n"+user+"\n"+password.trim());
-out2.close();
+//out2.print(host+"\n"+dbase2+"\n"+user+"\n"+password.trim());
+//out2.close();
 
    } catch (IOException e) {
     

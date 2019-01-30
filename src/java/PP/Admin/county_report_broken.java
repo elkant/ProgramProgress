@@ -384,7 +384,7 @@ shet1.addMergedRegion(new CellRangeAddress(0,0,1,17));
     
            
   int tableCounter=0;
-    String indicator_selector="SELECT * FROM indicatortitles WHERE (tableIdentifier='1' ||tableIdentifier='2') and active='yes' and designation like '%"+designations[shts]+"%' ";
+    String indicator_selector="SELECT * FROM indicatortitles WHERE (tableIdentifier='1' ||tableIdentifier='2') and active='yes' and designation like '%"+designations[shts]+"%' order by tableNo ";
     conn.rs=conn.state.executeQuery(indicator_selector);
     while(conn.rs.next()){
         tableCounter++;
@@ -3107,6 +3107,25 @@ HSSFRow rwk=shet1.createRow(aa);
     
     }
     }
+    
+    
+     if(conn.rs!=null){conn.rs.close();}
+              if(conn.rs1!=null){conn.rs1.close();}
+              if(conn.rs2!=null){conn.rs2.close();}
+              if(conn.rs3!=null){conn.rs3.close();}
+              if(conn.rs4!=null){conn.rs4.close();}
+              if(conn.rs5!=null){conn.rs5.close();}
+              if(conn.rs6!=null){conn.rs6.close();}
+              
+         if(conn.state!=null){conn.state.close();}
+         if(conn.state1!=null){conn.state1.close();}
+         if(conn.state2!=null){conn.state2.close();}
+         if(conn.state3!=null){conn.state3.close();}
+         if(conn.state4!=null){conn.state4.close();}
+         if(conn.state5!=null){conn.state5.close();}
+         if(conn.state6!=null){conn.state6.close();}
+         if(conn.pst!=null){conn.pst.close();}
+         if(conn.connect!=null){conn.connect.close();}
         
         
      ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();

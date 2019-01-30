@@ -553,6 +553,10 @@
         <servlet-name>ppmpreport_2</servlet-name>
         <servlet-class>PPMP.ppmpreport_2</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>pullfromServer</servlet-name>
+        <servlet-class>Scripts.pullfromServer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
@@ -1084,6 +1088,10 @@
     <servlet-mapping>
         <servlet-name>ppmpreport_2</servlet-name>
         <url-pattern>/ppmpreport_2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pullfromServer</servlet-name>
+        <url-pattern>/pullfromServer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

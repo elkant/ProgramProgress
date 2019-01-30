@@ -183,7 +183,7 @@ dbConnect conn = new dbConnect();
 
 String addconn="SET GLOBAL max_connections =6000";
   if(conn.state1.isClosed()){conn= new dbConnect();}
-conn.state1.executeUpdate(addconn);
+//conn.state1.executeUpdate(addconn);
 String showcols="SHOW COLUMNS FROM users LIKE 'Location'";
   
 conn.rs= conn.state1.executeQuery(showcols);
@@ -204,7 +204,7 @@ conn.state.executeUpdate(addcol);}
 
     <div><h1 style="text-align: center;height:100px;"><img src="images/aphia_logo.png" height="70" /></h1></div> 
 
-               <p style="background:white;border:1px solid greenyellow;" align="center" title="Version 1.29 Last Updated 10/04/2018."> &copy PPMT System Version 1.29 Last Updated on 10/04/2018. HSDSA | USAID </p>
+               <p style="background:white;border:1px solid greenyellow;" align="center" title="Version 1.29 Last Updated 10/04/2018."> &copy PPMT System Version 1.29 Last Updated on 17/01/2019. Afya Nyota Ya Bonde | USAID </p>
    
                <!--<p style="text-align: center;background-color:white ;"><a align="center" href="PPMT_INDICATORS.xlsx" >Click here to open the New Indicators Mapping document </a></p>-->
                

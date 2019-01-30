@@ -97,59 +97,63 @@ String sec=String.format("%02d",cal.get(Calendar.SECOND));
             
             CellStyle style = wb.createCellStyle();
             style.setFont(font);
-            style.setBorderTop(HSSFCellStyle.BORDER_THICK);
-            style.setBorderBottom(HSSFCellStyle.BORDER_THICK);
-            style.setBorderLeft(HSSFCellStyle.BORDER_THICK);
-            style.setBorderRight(HSSFCellStyle.BORDER_THICK);
+            style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            style.setBorderRight(HSSFCellStyle.BORDER_THIN);
             style.setAlignment(HSSFCellStyle.ALIGN_LEFT);
             style.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
             style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+            style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
             style.setWrapText(true);
             
             
             
             CellStyle spstyle = wb.createCellStyle();
             spstyle.setFont(font);
-            spstyle.setBorderTop(HSSFCellStyle.BORDER_THICK);
-            spstyle.setBorderBottom(HSSFCellStyle.BORDER_THICK);
-            spstyle.setBorderLeft(HSSFCellStyle.BORDER_THICK);
-            spstyle.setBorderRight(HSSFCellStyle.BORDER_THICK);
+            spstyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            spstyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            spstyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            spstyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
             spstyle.setAlignment(HSSFCellStyle.ALIGN_LEFT);
-            spstyle.setFillForegroundColor(HSSFColor.ORANGE.index);
+            spstyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
             spstyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
             spstyle.setWrapText(true);
+            spstyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
             System.out.println("Blue index:"+HSSFColor.BLUE.index);
             
             HSSFFont font2 = wb.createFont();
+            font2.setFontHeightInPoints((short) 12);
             font2.setFontName("Times New Roman");
             font2.setColor((short) 0000);
             CellStyle style2 = wb.createCellStyle();
             style2.setFont(font2);
-            style2.setBorderTop(HSSFCellStyle.BORDER_THICK);
-            style2.setBorderBottom(HSSFCellStyle.BORDER_THICK);
-            style2.setBorderLeft(HSSFCellStyle.BORDER_THICK);
-            style2.setBorderRight(HSSFCellStyle.BORDER_THICK);
+            style2.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            style2.setBorderRight(HSSFCellStyle.BORDER_THIN);
             style2.setAlignment(HSSFCellStyle.ALIGN_LEFT);
             style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
             style2.setWrapText(true);
 
             HSSFCellStyle stborder = wb.createCellStyle();
-            stborder.setBorderTop(HSSFCellStyle.BORDER_THICK);
-            stborder.setBorderBottom(HSSFCellStyle.BORDER_THICK);
-            stborder.setBorderLeft(HSSFCellStyle.BORDER_THICK);
-            stborder.setBorderRight(HSSFCellStyle.BORDER_THICK);
+            stborder.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            stborder.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            stborder.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            stborder.setBorderRight(HSSFCellStyle.BORDER_THIN);
             stborder.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 
             HSSFCellStyle stylex = wb.createCellStyle();
             stylex.setFillForegroundColor(HSSFColor.WHITE.index);
             stylex.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            stylex.setBorderTop(HSSFCellStyle.BORDER_THICK);
-            stylex.setBorderBottom(HSSFCellStyle.BORDER_THICK);
-            stylex.setBorderLeft(HSSFCellStyle.BORDER_THICK);
-            stylex.setBorderRight(HSSFCellStyle.BORDER_THICK);
+            stylex.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            stylex.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            stylex.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            stylex.setBorderRight(HSSFCellStyle.BORDER_THIN);
             stylex.setAlignment(HSSFCellStyle.ALIGN_LEFT);
 
             HSSFFont fontx = wb.createFont();
+            fontx.setFontHeightInPoints((short) 12);
             fontx.setColor(HSSFColor.BLACK.index);
             fontx.setFontName("Times New Roman");
             fontx.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
@@ -307,28 +311,28 @@ headertwo.add("");
 //===================================================================================
  
  
- String getindicators="select * from indicatortitles where  active='yes' order by output , title ";
+ String getindicators="select * from indicatortitles where  active='yes' and inppmp='yes' order by  tableNo,output   ";
  
             dbConnect conn= new dbConnect();
             
             conn.rs=conn.state.executeQuery(getindicators);
             int rownumber=3;
            
-            shet.setColumnWidth(1,14000);
+            shet.setColumnWidth(1,20000);
             shet.setColumnWidth(2,2300);
             shet.setColumnWidth(0,2100);
-            shet.setColumnWidth(3,2300);
-            shet.setColumnWidth(4,2300);
-            shet.setColumnWidth(5,2300);
-            shet.setColumnWidth(6,2300);
-            shet.setColumnWidth(7,2300);
-            shet.setColumnWidth(8,2300);
-            shet.setColumnWidth(9,2300);
-            shet.setColumnWidth(10,2300);
-            shet.setColumnWidth(11,2300);
-            shet.setColumnWidth(12,2300);
-            shet.setColumnWidth(13,2300);
-            shet.setColumnWidth(14,2300);
+            shet.setColumnWidth(3,2500);
+            shet.setColumnWidth(4,2500);
+            shet.setColumnWidth(5,2500);
+            shet.setColumnWidth(6,2500);
+            shet.setColumnWidth(7,2500);
+            shet.setColumnWidth(8,2500);
+            shet.setColumnWidth(9,2500);
+            shet.setColumnWidth(10,2500);
+            shet.setColumnWidth(11,2500);
+            shet.setColumnWidth(12,2500);
+            shet.setColumnWidth(13,2500);
+            shet.setColumnWidth(14,2500);
                ArrayList sp=new ArrayList();
             int subpurposerow=3;
             int subpurposerowcopy=3;
@@ -354,7 +358,7 @@ headertwo.add("");
             //===================================================subpurpose========================
         
      HSSFRow rwxa=shet.createRow(rownumber);
-     
+     rwxa.setHeightInPoints(25);
      HSSFCell cl01=rwxa.createCell(colpos);
      cl01.setCellValue(conn.rs.getString("output"));
      cl01.setCellStyle(spstyle);
@@ -363,7 +367,7 @@ headertwo.add("");
      
             subpurposerowcopy=subpurposerow;
       //should merge entire row
-       shet.addMergedRegion(new CellRangeAddress(subpurposerow,subpurposerow, 0 ,9));     
+       shet.addMergedRegion(new CellRangeAddress(subpurposerow,subpurposerow, 0 ,selectedyear-2009));     
 
       
      
@@ -381,14 +385,14 @@ headertwo.add("");
             //===================================================subpurpose========================
         
      HSSFRow rwxa=shet.createRow(rownumber);
-     
+     rwxa.setHeightInPoints(25);
      HSSFCell cl01=rwxa.createCell(colpos);
      cl01.setCellValue(conn.rs.getString("output"));
      cl01.setCellStyle(spstyle);
      
             subpurposerowcopy=subpurposerow;
       //should merge entire row
-       shet.addMergedRegion(new CellRangeAddress(subpurposerow,subpurposerow, 0 ,9));     
+       shet.addMergedRegion(new CellRangeAddress(subpurposerow,subpurposerow, 0 ,selectedyear-2009));     
 
      
       rownumber++;
@@ -429,7 +433,20 @@ headertwo.add("");
      //====================================================output============================= 
      HSSFCell cl02=rwx.createCell(colpos);
    //  cl02.setCellValue(conn.rs.getString("output"));
-     cl02.setCellValue(rownumber);
+   
+   String tn=conn.rs.getString("tableno");
+           
+     if (!tn.contains(".")) {
+         if (isNumeric(tn)) {
+             cl02.setCellValue(new Integer(tn));
+         } else {
+             cl02.setCellValue(tn);
+
+         }
+
+     } else {
+         cl02.setCellValue(tn);
+     }
      cl02.setCellStyle(style2);
      
      colpos++;
@@ -657,7 +674,7 @@ headertwo.add("");
        if( yearval>=2018 )
           {
           
-           qry=" select ROUND((SUM(case  when  financialYear='"+selectedyear+"' then numerator end)/SUM(case  when   financialYear='"+selectedyear+"' then denominator end))*100)  as y"+yearval+" from indicatorachievedcombined where financialyear='"+yearval+"' and titleID='"+conn.rs.getString("titleID")+"' group by titleID";    
+           qry=" select ROUND((SUM(case  when  financialYear='"+yearval+"' then numerator end)/SUM(case  when   financialYear='"+yearval+"' then denominator end))*100)  as y"+yearval+" from indicatorachievedcombined where financialyear='"+yearval+"' and titleID='"+conn.rs.getString("titleID")+"' group by titleID";    
       
           }
        else {
@@ -671,7 +688,7 @@ headertwo.add("");
             if( yearval>=2018 )
           {
           
-       qry=" select ROUND((sum(case  when  financialYear='"+selectedyear+"' then ((men_numerator + women_numerator)) end)/sum(case  when  financialYear='"+selectedyear+"' then ((men_denominator + women_denominator)) end))*100)  as y"+yearval+" from indicatorachieved where financialyear='"+yearval+"' and titleID='"+conn.rs.getString("titleID")+"' group by titleID";    
+       qry=" select ROUND((sum(case  when  financialYear='"+yearval+"' then ((men_numerator + women_numerator)) end)/sum(case  when  financialYear='"+yearval+"' then ((men_denominator + women_denominator)) end))*100)  as y"+yearval+" from indicatorachieved where financialyear='"+yearval+"' and titleID='"+conn.rs.getString("titleID")+"' group by titleID";    
           }
             else {
        
@@ -719,7 +736,7 @@ else {
        }//end of else of non percents
   
   
-       System.out.println("@"+qry);    
+       System.out.println("@ annual query"+qry);    
   
     conn.rs1=conn.state1.executeQuery(qry);
     
@@ -947,8 +964,10 @@ else {
  
  
   for (int e = 0; e < 13; e++) {
-                //shet.autoSizeColumn(e);
+                //shet.getRow(rowgani).autoSizeColumn(e,true);
                 }
+  //shet.autoSizeColumn(1,false);
+  
                 //Made my life veery simple...
                 shet.setDisplayGridlines(false);
                 shet.createFreezePane(2,3);  
@@ -1023,5 +1042,13 @@ outStream.flush();
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    
+    public boolean isNumeric(String s) {
+        return s != null && s.matches("[-+]?\\d*\\.?\\d+");
+    } 
+    
+    
+    
 
 }
